@@ -1,0 +1,3 @@
+Original_Sample_ID	Base_Medium	Carbon_Source	Supplement	Temperature_C	Cultivation_Method	Condition_ID	Condition_Description	Notes
+LB	LB	Undefined (complex)		37	Batch	LB	LB rich medium	growth rate read from Table S23
+Glucose	Minimal	Glucose		37	Batch	Glucose_Minimal	Glucose minimal medium	growth rate read from Table S23; exact base medium to be filled in from Schmidt 2016 Methods

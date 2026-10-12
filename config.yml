@@ -1,0 +1,139 @@
+# =============================================================================
+# Proteome allocation pipeline - single source of truth for every parameter.
+# Nothing in src/ or notebooks/ hardcodes a threshold, file name, seed or column.
+# =============================================================================
+project: "E. coli proteome allocation vs growth rate (COG functional groups)"
+
+seed: 20261011 # master seed; every stochastic step derives its stream from it
+n_jobs: 2 # joblib workers for bootstrap / permutation (results do not depend on it)
+
+paths:
+  raw_dir: data/raw # untouched supplementary files (read-only)
+  annotation_dir: data/annotation # cached UniProt + COG tables (downloaded once)
+  processed_dir: data/processed # harmonised matrix + metadata written by notebook 01/02
+  results_dir: results # figures/, tables/, run_log.json
+
+# ---------------------------------------------------------------- datasets ---
+datasets:
+  schmidt_2016:
+    file: "1.1The quantitative and condition-dependent Escherichia coli proteome.xlsx"
+    abundance_sheet: "Table S9"
+    growth_sheet: "Table S23"
+    skiprows: 2
+    strain: NCM3722
+    copies_prefix: "Copies/Cell_{strain}." # column prefix of the copies-per-cell block
+    accession_col: "Uniprot Accession"
+    gene_col: "Gene"
+    mw_col: "proteinMW"
+    growth_condition_col: "Growth condition"
+    growth_rate_col: "Growth rate (h-1)"
+    growth_strain_col: "Strain"
+    metadata: metadata/schmidt_2016_samples.tsv
+    original_unit: "protein copies per cell (converted here: copies*MW / sum(copies*MW))"
+  mori_2021:
+    abundance_file: "2.3MOESM8_ESM.xlsx"
+    abundance_sheets: ["EV8-AbsoluteMassFractions-1"] # add further sheets here if samples live elsewhere
+    samples_file: "2.6MOESM2_ESM.xlsx"
+    samples_sheets: ["EV2-Samples-1"]
+    locus_col: "Gene locus"
+    gene_col: "Gene name"
+    sample_id_col: "Sample ID"
+    strain_col: "Strain"
+    strain_contains: "NCM3722"
+    doubling_time_col: "Doubling time (min)"
+    original_unit: "absolute protein mass fraction"
+  wu_2023:
+    file: "3.1CHEN41564_2022_1310_MOESM3_ESM.xlsx"
+    sheets: # MS_Batch label -> sheet name
+      Group1: "Group #1 protein mass fractions"
+      Group2: "Group #2 protein mass fractions"
+      Group3: "Group #3 protein mass fractions"
+    locus_col: "Gene locus"
+    gene_col: "Gene name"
+    metadata: metadata/wu_2023_samples.tsv
+    original_unit: "absolute protein mass fraction"
+  zhu_2025:
+    files: ["4.1. Zhu_SD01.xlsx", "4.2Zhu_SD02.xlsx"] # every sheet of every file is searched
+    locus_col: "gene locus"
+    gene_col: "gene name"
+    metadata: metadata/zhu_2025_samples.tsv
+    original_unit: "absolute protein mass fraction"
+
+ingest:
+  locus_regex: "^b\\d{4}$" # valid E. coli K-12 MG1655 b-number
+  sample_sum_bounds: [0.90, 1.05] # a mass-fraction profile must sum to ~1 before renormalisation
+  strict_missing_samples: false # true = stop if a sample listed in metadata is not found in the files
+
+# ------------------------------------------------------------------- scope ---
+scope:
+  name: nutrient_quality
+  strain_contains: "NCM3722"
+  reference_temperature_C: 37
+  cultivation_method: "Batch"
+  # Regex rules (case-insensitive) applied to the free-text condition description.
+  # First match wins; a sample with no match stays 'nutrient_quality'.
+  perturbation_rules:
+    temperature: ["\\btemp", "heat", "cold"]
+    osmotic: ["\\bosm", "nacl", "sorbitol"]
+    ph: ["\\bpH\\b"] # not 'acid': it would catch 'casamino acids'
+    anaerobic: ["anaerob", "anoxic"]
+    stationary: ["stationary", "\\bstat\\b", "starv"]
+    antibiotic:
+      [
+        "chloramphenicol",
+        "\\bcm\\b",
+        "tetracycline",
+        "rifamp",
+        "antibiotic",
+        "erythromycin",
+      ]
+    oxidative: ["h2o2", "oxidat", "paraquat", "peroxide"]
+    limitation: ["limit", "titrat", "chemostat"]
+    overexpression: ["overexp", "iptg", "induc"]
+  special_medium_regex: ["^special"] # base media flagged as non-standard
+  special_procedure_is_perturbation: true # Mori: non-empty 'Special condition/procedure'
+  overrides: metadata/scope_overrides.tsv # manual, documented decisions win over rules
+
+# -------------------------------------------------------------- annotation ---
+annotation:
+  uniprot_url: "https://rest.uniprot.org/uniprotkb/stream"
+  uniprot_query: "(organism_id:83333) AND (reviewed:true)" # E. coli K-12, Swiss-Prot
+  uniprot_fields: "accession,gene_oln,gene_primary,mass,xref_eggnog"
+  uniprot_file: uniprot_ecoli_k12.tsv
+  cog_def_url: "https://ftp.ncbi.nlm.nih.gov/pub/COG/COG2020/data/cog-20.def.tab"
+  cog_def_file: cog-20.def.tab
+  cog_categories: metadata/cog_categories.tsv
+  output_file: protein_cog_annotation.tsv
+  multi_category: split # split = mass divided equally over a protein's COG letters; first = first letter only
+  unassigned_label: "-"
+
+# -------------------------------------------------------------- allocation ---
+allocation:
+  renormalise: true # divide each sample by its own sum so every profile sums to exactly 1
+  batch_key: Dataset_Source
+  condition_key: Condition_ID
+  growth_key: "Specific_Growth_Rate_h-1"
+  min_mean_fraction: 0.001 # categories below this mean mass fraction are reported but not tested
+  n_permutations: 9999
+  n_bootstrap: 4000
+  ci_level: 0.95
+  fdr_alpha: 0.05
+# -------------------------------------------------------------- mapping ---
+proteomap:
+  conditions: auto
+  label_min_share: 0.006
+
+# -------------------------------------------------------------------- asca ---
+asca:
+  min_detect_fraction_per_dataset: 1.0 # 1.0 = protein quantified in every in-scope sample of every dataset -> no imputation
+  half_min_factor: 0.5 # only used if the threshold above is < 1.0 (per-sample half-minimum)
+  log_base: 10
+  n_permutations: 1000
+  include_interaction: true # batch x growth-rate term: do batches agree on each protein's slope?
+  top_n: 25
+
+# -------------------------------------------------------------- prediction ---
+prediction:
+  n_components_grid: [1, 2, 3]
+  exclude_features: ["-"] # 'not in COG' is not a functional group
+  n_permutations: 200

@@ -1,0 +1,24 @@
+# Versions below are the ones the pipeline and the smoke test were run with.
+# After creating the environment on your machine, run `python tests/smoke_test.py`
+# and export the exact resolved set with:  pip freeze > requirements-lock.txt
+name: proteome-allocation
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+      - numpy==2.5.3
+      - pandas==3.0.5
+      - scipy==1.18.1
+      - scikit-learn==1.9.1
+      - matplotlib==3.11.2
+      - openpyxl==3.1.5
+      - PyYAML==6.0.3
+      - joblib==1.6.0
+      - requests==2.34.2
+      - jupyterlab
+      - nbconvert
+      - ipykernel
+      # optional, only for the h5ad export in notebook 01:
+      # - anndata

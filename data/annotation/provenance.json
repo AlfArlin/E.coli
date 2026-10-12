@@ -1,0 +1,16 @@
+{
+  "uniprot_ecoli_k12.tsv": {
+    "url": "https://rest.uniprot.org/uniprotkb/stream?query=%28organism_id%3A83333%29+AND+%28reviewed%3Atrue%29&fields=accession%2Cgene_oln%2Cgene_primary%2Cmass%2Cxref_eggnog&format=tsv",
+    "downloaded_utc": "2026-10-11T16:30:29+00:00",
+    "uniprot_release": "2026_03",
+    "sha256": "8ef61146b6fcaa5e365a8f9237a5ba0f6439a0b43e47eaa70cca2f62f6814fed",
+    "bytes": 179127
+  },
+  "cog-20.def.tab": {
+    "url": "https://ftp.ncbi.nlm.nih.gov/pub/COG/COG2020/data/cog-20.def.tab",
+    "downloaded_utc": "2026-10-11T16:30:31+00:00",
+    "uniprot_release": null,
+    "sha256": "00e93e42f38f6ada46ef6be5da4a8518829300ea29f2888261660de0ca2f7e77",
+    "bytes": 372608
+  }
+}

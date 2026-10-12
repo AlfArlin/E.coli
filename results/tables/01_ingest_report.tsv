@@ -1,0 +1,5 @@
+	n_samples	n_loci	detected_per_sample_median	sample_sum_min	sample_sum_max	rows_invalid_locus_dropped	duplicated_locus_rows_summed	cells_non_numeric_set_to_zero	samples_in_metadata_not_in_files
+schmidt_2016	2.0	1986.0	1986.0	0.9955403249650412	0.9958413498064453	0.0	1.0	0.0	
+mori_2021	19	4324	2024.0	0.9999999791638581	1.00000001026427	0	0	0	['Lib-31-A1', 'Lib-31-A2', 'Lib-32-A1', 'Lib-32-A2']
+wu_2023	21	4324	1792.0	0.9999998633580011	1.0000001654650001	1	0	0	['A3']
+zhu_2025	12	4350	1434.5	0.998427	0.9995370000000001	39	0	0	[]

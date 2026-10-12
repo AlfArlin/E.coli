@@ -1,0 +1,55 @@
+Sample_ID	Condition_ID	Base_Medium	Carbon_Source	Temperature_C	Special_Procedure	Specific_Growth_Rate_h-1	Perturbation_Type	Scope_Rule	In_Scope
+schmidt_2016:LB	LB	LB	Undefined (complex)	37.0		2.3	nutrient_quality	no perturbation rule matched	True
+schmidt_2016:Glucose	Glucose_Minimal	Minimal	Glucose	37.0		1.03	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-01	Hi Temp	MOPS (Record's)	0.2% glucose		High temperature, 42 °C	0.8848687411403557	temperature	description matches /\btemp/	False
+mori_2021:Lib-02	Hi Osm 1	MOPS (Record's)	0.2% glucose		Seed culture: LB with 0.3M NaCl	0.2446401813740983	osmotic	description matches /\bosm/	False
+mori_2021:Lib-03	Hi Osm 2	MOPS (Record's)	0.2% fructose		Seed culture: LB with 0.3M NaCl	0.3780802803054247	osmotic	description matches /\bosm/	False
+mori_2021:Lib-04	Hi Osm 3	MOPS (Record's)	0.2% sorbitol		Seed culture: LB with 0.3M NaCl	0.3780802803054247	osmotic	description matches /\bosm/	False
+mori_2021:Lib-05	Anaerobic	Special N-C- (see Methods)	10 mM glucose		Grown anaerobically	0.6817841120261757	anaerobic	description matches /anaerob/	False
+mori_2021:Lib-06	Acetate	Phosphate buffered N-C- medium	0.4% sodium acetate			0.5010702510071894	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-07	Kanamycin	Phosphate buffered N-C- medium	0.4% glucose			0.7426576934570842	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-14	Ox. stress	MOPS (Record's)	20 mM glucose		added 400µM hydrogen peroxide at OD=0.58;sample collected 20 minutes later		oxidative	description matches /oxidat/	False
+mori_2021:Lib-15	Poor N	MOPS (Record's)	20 mM glucose			0.2403978660901544	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-19	LB stat 1	LB			Collected at OD600=3.34		stationary	description matches /stationary/	False
+mori_2021:Lib-20	LB mid log	LB			Collected at OD600=0.6		other_perturbation	special condition/procedure recorded	False
+mori_2021:Lib-21	LB late log	LB			Collected at OD600=2.5		other_perturbation	special condition/procedure recorded	False
+mori_2021:Lib-22	LB stat 2	LB			Collected at OD600=3.34		stationary	description matches /stationary/	False
+mori_2021:Lib-24	Carbon 46	MOPS (Record's)	20 mM mannitol			0.9041050181216675	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-26	Carbon 37	MOPS (Record's)	10 mM glucose-6-phosphate + 10 mM gluconate			1.1240224549620734	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-27	Carbon 85	MOPS (Record's)	0.2% galactose			0.4892803627481966	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-28	Carbon 50	MOPS (Neidhardt's)	24 mM xylose + 20 mM oxaloacetate			0.8317766166719343	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-29	Carbon 54	MOPS (Record's)	40 mM glycerol + 30 mM succinate			0.7701635339554948	nutrient_quality	no perturbation rule matched	True
+mori_2021:Lib-30	Carbon 49	MOPS (Neidhardt's)	12 mM arabinose			0.8487516496652392	nutrient_quality	no perturbation rule matched	True
+wu_2023:M1	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.96	nutrient_quality	no perturbation rule matched	True
+wu_2023:N5	RDM_Glucose	Rich_RDM	Glucose	37.0		1.77	nutrient_quality	no perturbation rule matched	True
+wu_2023:N6	RDM	Rich_RDM		37.0		1.42	nutrient_quality	no perturbation rule matched	True
+wu_2023:N7	CAA_Glucose	Rich_CAA	Glucose	37.0		1.58	nutrient_quality	no perturbation rule matched	True
+wu_2023:N8	CAA	Rich_CAA		37.0		1.32	nutrient_quality	no perturbation rule matched	True
+wu_2023:O8	LB_Broth	Rich_LB	Undefined	37.0		2.19	nutrient_quality	no perturbation rule matched	True
+wu_2023:P1	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.95	nutrient_quality	no perturbation rule matched	True
+wu_2023:S1	18AA_Glycerol	Minimal_18AA	Glycerol	37.0		1.45	nutrient_quality	no perturbation rule matched	True
+wu_2023:A1	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.96	nutrient_quality	no perturbation rule matched	True
+wu_2023:A2	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.95	nutrient_quality	no perturbation rule matched	True
+wu_2023:A3_4	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.96	nutrient_quality	no perturbation rule matched	True
+wu_2023:A3_5	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.96	nutrient_quality	no perturbation rule matched	True
+wu_2023:A3_6	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.96	nutrient_quality	no perturbation rule matched	True
+wu_2023:A3_7	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.96	nutrient_quality	no perturbation rule matched	True
+wu_2023:A3_8	Glucose_Minimal	Minimal_MOPS	Glucose	37.0		0.96	nutrient_quality	no perturbation rule matched	True
+wu_2023:A26	Glycerol_Minimal	Minimal_MOPS	Glycerol	37.0		0.67	nutrient_quality	no perturbation rule matched	True
+wu_2023:A27	Glycerol_Minimal	Minimal_MOPS	Glycerol	37.0		0.67	nutrient_quality	no perturbation rule matched	True
+wu_2023:A28	Glycerol_Minimal	Minimal_MOPS	Glycerol	37.0		0.67	nutrient_quality	no perturbation rule matched	True
+wu_2023:A29	18AA_Glycerol	Minimal_18AA	Glycerol	37.0		1.45	nutrient_quality	no perturbation rule matched	True
+wu_2023:A30	18AA_minus_ser_Glycerol	Minimal_18AA_minus_ser	Glycerol	37.0		1.17	nutrient_quality	no perturbation rule matched	True
+wu_2023:A31	18AA_minus_ser_met_Glycerol	Minimal_18AA_minus_ser_met	Glycerol	37.0		0.98	nutrient_quality	no perturbation rule matched	True
+zhu_2025:F12	Glucose_37C	Glucose	0.2% glucose	37.0		0.92	nutrient_quality	no perturbation rule matched	True
+zhu_2025:F13	Glc_Glut_37C	Glc_Glut	0.2% glucose + 1mM glutamate	37.0		1.0	nutrient_quality	no perturbation rule matched	True
+zhu_2025:F13-1	LB_37C	LB	LB broth	37.0		1.9	nutrient_quality	no perturbation rule matched	True
+zhu_2025:F13-2	Glc_CAA_37C	Glc_CAA	0.2% glucose+0.2% CAA	37.0		1.2	nutrient_quality	no perturbation rule matched	True
+zhu_2025:F13-3	Glycerol_37C	Glycerol	0.2% glycerol	37.0		0.67	nutrient_quality	no perturbation rule matched	True
+zhu_2025:F13-4	Mannose_37C	Mannose	0.2% mannose	37.0		0.42	nutrient_quality	no perturbation rule matched	True
+zhu_2025:K1	LB_30C	LB	LB broth	30.0		1.205	temperature	Temperature_C = 30.0 != 37	False
+zhu_2025:K2	Glc_CAA_30C	Glc_CAA	0.2% glucose+0.2% CAA	30.0		0.915	temperature	Temperature_C = 30.0 != 37	False
+zhu_2025:K3	Glucose_30C	Glucose	0.2% glucose	30.0		0.644	temperature	Temperature_C = 30.0 != 37	False
+zhu_2025:K4	Glycerol_30C	Glycerol	0.2% glycerol	30.0		0.418	temperature	Temperature_C = 30.0 != 37	False
+zhu_2025:K5	Mannose_30C	Mannose	0.2% mannose	30.0		0.395	temperature	Temperature_C = 30.0 != 37	False
+zhu_2025:K6	Glucose_37C	Glucose	0.2% glucose	37.0		0.949	nutrient_quality	no perturbation rule matched	True

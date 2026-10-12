@@ -1,0 +1,28 @@
+Dataset_Source	Condition_ID	n_runs	growth_rate	MS_batches
+schmidt_2016	LB	1	2.3	schmidt_2016
+schmidt_2016	Glucose_Minimal	1	1.03	schmidt_2016
+mori_2021	Acetate	1	0.5010702510071894	mori_2021
+mori_2021	Kanamycin	1	0.7426576934570842	mori_2021
+mori_2021	Poor N	1	0.2403978660901544	mori_2021
+mori_2021	Carbon 46	1	0.9041050181216675	mori_2021
+mori_2021	Carbon 37	1	1.1240224549620734	mori_2021
+mori_2021	Carbon 85	1	0.4892803627481966	mori_2021
+mori_2021	Carbon 50	1	0.8317766166719343	mori_2021
+mori_2021	Carbon 54	1	0.7701635339554948	mori_2021
+mori_2021	Carbon 49	1	0.8487516496652392	mori_2021
+wu_2023	Glucose_Minimal	9	0.9577777777777777	Group1, Group2, Group3
+wu_2023	RDM_Glucose	1	1.77	Group1
+wu_2023	RDM	1	1.42	Group1
+wu_2023	CAA_Glucose	1	1.58	Group1
+wu_2023	CAA	1	1.32	Group1
+wu_2023	LB_Broth	1	2.19	Group1
+wu_2023	18AA_Glycerol	2	1.45	Group2, Group3
+wu_2023	Glycerol_Minimal	3	0.67	Group3
+wu_2023	18AA_minus_ser_Glycerol	1	1.17	Group3
+wu_2023	18AA_minus_ser_met_Glycerol	1	0.98	Group3
+zhu_2025	Glucose_37C	2	0.9345	Zhu_2025
+zhu_2025	Glc_Glut_37C	1	1.0	Zhu_2025
+zhu_2025	LB_37C	1	1.9	Zhu_2025
+zhu_2025	Glc_CAA_37C	1	1.2	Zhu_2025
+zhu_2025	Glycerol_37C	1	0.67	Zhu_2025
+zhu_2025	Mannose_37C	1	0.42	Zhu_2025

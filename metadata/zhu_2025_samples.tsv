@@ -1,0 +1,13 @@
+Original_Sample_ID	Base_Medium	Carbon_Source	Supplement	Temperature_C	Cultivation_Method	Condition_ID	Condition_Description	MS_Batch	Specific_Growth_Rate_h-1	Growth_Rate_Source	Notes
+F13-1	LB	LB broth		37	Batch	LB_37C	LB broth at 37 C	Zhu_2025	1.9	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+F13-2	Glc_CAA	0.2% glucose+0.2% CAA		37	Batch	Glc_CAA_37C	0.2% glucose+0.2% CAA at 37 C	Zhu_2025	1.2	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+F13	Glc_Glut	0.2% glucose + 1mM glutamate		37	Batch	Glc_Glut_37C	0.2% glucose + 1mM glutamate at 37 C	Zhu_2025	1.0	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+F12	Glucose	0.2% glucose		37	Batch	Glucose_37C	0.2% glucose at 37 C	Zhu_2025	0.92	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+F13-3	Glycerol	0.2% glycerol		37	Batch	Glycerol_37C	0.2% glycerol at 37 C	Zhu_2025	0.67	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+F13-4	Mannose	0.2% mannose		37	Batch	Mannose_37C	0.2% mannose at 37 C	Zhu_2025	0.42	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+K1	LB	LB broth		30	Batch	LB_30C	LB broth at 30 C	Zhu_2025	1.205	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+K2	Glc_CAA	0.2% glucose+0.2% CAA		30	Batch	Glc_CAA_30C	0.2% glucose+0.2% CAA at 30 C	Zhu_2025	0.915	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+K3	Glucose	0.2% glucose		30	Batch	Glucose_30C	0.2% glucose at 30 C	Zhu_2025	0.644	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+K4	Glycerol	0.2% glycerol		30	Batch	Glycerol_30C	0.2% glycerol at 30 C	Zhu_2025	0.418	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+K5	Mannose	0.2% mannose		30	Batch	Mannose_30C	0.2% mannose at 30 C	Zhu_2025	0.395	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	
+K6	Glucose	0.2% glucose		37	Batch	Glucose_37C	0.2% glucose at 37 C	Zhu_2025	0.949	value typed by hand in Proteome_allocation_statistics.ipynb - CITE the Zhu 2025 table it was read from	K6 is the second 37 C glucose replicate
