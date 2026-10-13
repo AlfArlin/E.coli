@@ -1,4 +1,4 @@
-# Proteome allocation versus growth rate in *E. coli* (COG functional groups)
+# Proteome allocation protein groups involve ingrowth rate in *E. coli* (COG functional groups)
 
 **Question.** Which functional protein groups take a larger or smaller share of the
 *E. coli* K-12 (NCM3722) proteome as growth rate changes across nutrient conditions,
