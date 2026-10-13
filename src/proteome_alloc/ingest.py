@@ -268,7 +268,18 @@ def load_mori(cfg: Config) -> Dataset:
     obs["Base_Medium"] = text("Base medium")
     obs["Carbon_Source"] = text("Carbon Source")
     obs["Supplement"] = text("Supplement")
-    obs["Temperature_C"] = np.nan     # not a column of the samples table; see scope rules
+    # Temperature is not a column of the EV2 samples table. The growth temperatures stated in the
+    # Mori 2021 Methods are set in config.yml: default_temperature_C for all samples, and
+    # temperature_shift_C for samples whose description names a temperature shift ("Hi Temp").
+    default_temperature = c.get("default_temperature_C")
+    shifted_temperature = c.get("temperature_shift_C")
+    temperature_rule = re.compile("|".join(cfg["scope"]["perturbation_rules"]["temperature"]), re.I)
+    description = (text("Short Description") + " " + text("Description")).astype(str)
+    obs["Temperature_C"] = [
+        (float(shifted_temperature) if shifted_temperature is not None else np.nan)
+        if temperature_rule.search(d)
+        else (float(default_temperature) if default_temperature is not None else np.nan)
+        for d in description]
     obs["Condition_ID"] = text("Short Description")
     obs["Condition_Description"] = (text("Short Description") + " | " + text("Description")).str.strip(" |")
     obs["Special_Procedure"] = text("Special condition/procedure")

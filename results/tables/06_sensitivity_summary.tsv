@@ -1,0 +1,5 @@
+scenario	significant categories	same sign as A (%)	same significance call as A (%)	Spearman r of slopes vs A	largest |slope change| (points per h-1)
+A · zero (notebook 03)	14	100.0	100.0	1.0	0.0
+B · common floor	14	100.0	100.0	0.999	0.38
+C · impute ½ LLOD	14	100.0	100.0	0.997	0.213
+D · impute LLOD (upper bound)	14	100.0	100.0	0.997	0.331

@@ -1,0 +1,7 @@
+MS_Batch	Dataset_Source	runs	LLOD50_log10	lowest_reported_log10	median_quantified_per_run	quantified_values_below_LLOD50_%
+mori_2021	mori_2021	19	-5.38	-7.77	2024	1.4
+Group3	wu_2023	13	-4.62	-8.61	1833	9.6
+schmidt_2016	schmidt_2016	2	-4.62	-9.1	1986	40.5
+Group1	wu_2023	6	-4.38	-7.41	1674	19.5
+Group2	wu_2023	2	-4.38	-7.01	1629	17.8
+Zhu_2025	zhu_2025	12	-4.12	-6.0	1434	25.5

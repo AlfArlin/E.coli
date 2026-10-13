@@ -2,27 +2,28 @@ Condition	held_out_with_dataset
 schmidt_2016|LB	schmidt_2016
 schmidt_2016|Glucose_Minimal	schmidt_2016
 mori_2021|Acetate	mori_2021
-mori_2021|Kanamycin	mori_2021
-mori_2021|Poor N	mori_2021
 mori_2021|Carbon 46	mori_2021
 mori_2021|Carbon 37	mori_2021
 mori_2021|Carbon 85	mori_2021
 mori_2021|Carbon 50	mori_2021
 mori_2021|Carbon 54	mori_2021
 mori_2021|Carbon 49	mori_2021
-wu_2023|Glucose_Minimal	wu_2023
-wu_2023|RDM_Glucose	wu_2023
-wu_2023|RDM	wu_2023
-wu_2023|CAA_Glucose	wu_2023
-wu_2023|CAA	wu_2023
-wu_2023|LB_Broth	wu_2023
-wu_2023|18AA_Glycerol	wu_2023
-wu_2023|Glycerol_Minimal	wu_2023
-wu_2023|18AA_minus_ser_Glycerol	wu_2023
-wu_2023|18AA_minus_ser_met_Glycerol	wu_2023
-zhu_2025|Glucose_37C	zhu_2025
-zhu_2025|Glc_Glut_37C	zhu_2025
-zhu_2025|LB_37C	zhu_2025
-zhu_2025|Glc_CAA_37C	zhu_2025
-zhu_2025|Glycerol_37C	zhu_2025
-zhu_2025|Mannose_37C	zhu_2025
+Group1|Glucose_Minimal	wu_2023
+Group1|RDM_Glucose	wu_2023
+Group1|RDM	wu_2023
+Group1|CAA_Glucose	wu_2023
+Group1|CAA	wu_2023
+Group1|LB_Broth	wu_2023
+Group2|Glucose_Minimal	wu_2023
+Group2|18AA_Glycerol	wu_2023
+Group3|Glucose_Minimal	wu_2023
+Group3|Glycerol_Minimal	wu_2023
+Group3|18AA_Glycerol	wu_2023
+Group3|18AA_minus_ser_Glycerol	wu_2023
+Group3|18AA_minus_ser_met_Glycerol	wu_2023
+Zhu_2025|Glucose_37C	zhu_2025
+Zhu_2025|Glc_Glut_37C	zhu_2025
+Zhu_2025|LB_37C	zhu_2025
+Zhu_2025|Glc_CAA_37C	zhu_2025
+Zhu_2025|Glycerol_37C	zhu_2025
+Zhu_2025|Mannose_37C	zhu_2025

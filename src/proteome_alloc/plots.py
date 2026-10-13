@@ -237,7 +237,8 @@ def plot_asca(result, path=None, top_n: int = 20, batch_key: str = "Dataset_Sour
             color=[UP if v > 0 else DOWN for v in values], height=0.65)
     ax.invert_yaxis()
     ax.axvline(0, color="#52514e", linewidth=1)
-    ax.set_xlabel("Within-dataset slope (log$_{10}$ mass fraction per h$^{-1}$)")
+    unit = "CLR units (log$_{10}$)" if result.params.get("transform") == "clr" else "log$_{10}$ mass fraction"
+    ax.set_xlabel(f"Within-batch slope ({unit} per h$^{{-1}}$)")
     ax.set_title(f"D. {top_n} most growth-dependent proteins")
     ax.grid(axis="y", visible=False)
     fig.tight_layout()

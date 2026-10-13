@@ -1,1 +1,4 @@
 Sample_ID	Perturbation_Type	Reason
+zhu_2025:K6	excluded_batch_depth	only in-scope sample of Zhu K batch; ~35% fewer quantified proteins; adds no within-batch growth contrast
+mori_2021:Lib-07	antibiotic	kanamycin present; growth slowed by translation inhibition, not by nutrient quality
+mori_2021:Lib-15	nitrogen_limitation	poor nitrogen source; N-limitation has a different allocation response than carbon quality

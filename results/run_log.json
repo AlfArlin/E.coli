@@ -1,8 +1,8 @@
 {
   "01_ingest_harmonise": {
-    "timestamp_utc": "2026-10-12T14:28:28+00:00",
+    "timestamp_utc": "2026-10-13T10:23:18+00:00",
     "config_file": "config.yml",
-    "config_sha256": "0fedda05cf995b97f47962f1d3b5962606c12d3967a464fca36cb0d52887fbde",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
     "seed": 20261011,
     "environment": {
       "python": "3.13.2",
@@ -53,6 +53,8 @@
           "strain_col": "Strain",
           "strain_contains": "NCM3722",
           "doubling_time_col": "Doubling time (min)",
+          "default_temperature_C": 37,
+          "temperature_shift_C": 42,
           "original_unit": "absolute protein mass fraction"
         },
         "wu_2023": {
@@ -113,7 +115,7 @@
       "annotation/uniprot_ecoli_k12.tsv": "8ef61146b6fcaa5e365a8f9237a5ba0f6439a0b43e47eaa70cca2f62f6814fed",
       "metadata/cog_categories.tsv": "c6091b7f0e35c6904ac6a93ee277bb2e6765dfa251dfae544e8e18019a99527a",
       "metadata/schmidt_2016_samples.tsv": "1eabec8eec725562f919273f06fbc465478d13948b41ba98d7a8c19c099a9287",
-      "metadata/scope_overrides.tsv": "d8a9cc37e69c9551b326f91868cf8f8696833573246e6e076aa2db8144bd4625",
+      "metadata/scope_overrides.tsv": "6e28e75040965b5a5ffab3a72e6c1d3b4f32116de784e07186748be2767ef702",
       "metadata/wu_2023_samples.tsv": "4dc50cd88c45a360a840361640eb9181e5a7b7e3035e04807e3edf0931fa0499",
       "metadata/zhu_2025_samples.tsv": "66329b1dc29291f3c9d205c7352ac1e4188405608cb32bb83139c310cc7824be"
     },
@@ -225,9 +227,9 @@
     }
   },
   "02_metadata_scope_qc": {
-    "timestamp_utc": "2026-10-12T14:47:23+00:00",
+    "timestamp_utc": "2026-10-13T10:24:18+00:00",
     "config_file": "config.yml",
-    "config_sha256": "0fedda05cf995b97f47962f1d3b5962606c12d3967a464fca36cb0d52887fbde",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
     "seed": 20261011,
     "environment": {
       "python": "3.13.2",
@@ -307,29 +309,32 @@
       }
     },
     "inputs_sha256": {
-      "metadata/scope_overrides.tsv": "d8a9cc37e69c9551b326f91868cf8f8696833573246e6e076aa2db8144bd4625"
+      "metadata/scope_overrides.tsv": "6e28e75040965b5a5ffab3a72e6c1d3b4f32116de784e07186748be2767ef702"
     },
     "outputs": [
       "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\data\\processed\\sample_metadata_scoped.tsv"
     ],
     "notes": {
-      "n_runs_in_scope": 39,
-      "n_conditions_in_scope": 27,
+      "n_runs_in_scope": 36,
+      "n_conditions_in_scope": 25,
       "perturbation_counts": {
-        "nutrient_quality": 39,
+        "nutrient_quality": 36,
         "temperature": 6,
         "osmotic": 3,
         "stationary": 2,
         "other_perturbation": 2,
         "anaerobic": 1,
-        "oxidative": 1
+        "antibiotic": 1,
+        "oxidative": 1,
+        "nitrogen_limitation": 1,
+        "excluded_batch_depth": 1
       }
     }
   },
   "03_cog_allocation_vs_growth": {
-    "timestamp_utc": "2026-10-12T15:28:20+00:00",
+    "timestamp_utc": "2026-10-13T10:25:35+00:00",
     "config_file": "config.yml",
-    "config_sha256": "72a84b42e9e627de404b0a6ab380c491512406ccbd3ed404fa8ee0a2d76d0487",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
     "seed": 20261011,
     "environment": {
       "python": "3.13.2",
@@ -350,7 +355,7 @@
     "parameters": {
       "allocation": {
         "renormalise": true,
-        "batch_key": "Dataset_Source",
+        "batch_key": "MS_Batch",
         "condition_key": "Condition_ID",
         "growth_key": "Specific_Growth_Rate_h-1",
         "min_mean_fraction": 0.001,
@@ -364,8 +369,8 @@
         "conditions": "auto",
         "label_min_share": 0.006,
         "conditions_drawn": [
-          "wu_2023|Glycerol_Minimal",
-          "wu_2023|LB_Broth"
+          "Zhu_2025|Mannose_37C",
+          "Zhu_2025|LB_37C"
         ]
       }
     },
@@ -381,12 +386,14 @@
       "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_proteomap_category_change.tsv"
     ],
     "notes": {
-      "n_conditions": 27,
+      "n_conditions": 28,
       "conditions_per_dataset": {
-        "wu_2023": 10,
-        "mori_2021": 9,
-        "zhu_2025": 6,
-        "schmidt_2016": 2
+        "mori_2021": 7,
+        "Group1": 6,
+        "Zhu_2025": 6,
+        "Group3": 5,
+        "schmidt_2016": 2,
+        "Group2": 2
       },
       "n_permutations": 9999,
       "n_bootstrap": 4000,
@@ -395,9 +402,9 @@
     }
   },
   "04_asca_protein_level": {
-    "timestamp_utc": "2026-10-12T17:18:29+00:00",
+    "timestamp_utc": "2026-10-13T10:27:29+00:00",
     "config_file": "config.yml",
-    "config_sha256": "72a84b42e9e627de404b0a6ab380c491512406ccbd3ed404fa8ee0a2d76d0487",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
     "seed": 20261011,
     "environment": {
       "python": "3.13.2",
@@ -420,6 +427,7 @@
         "min_detect_fraction_per_dataset": 1.0,
         "half_min_factor": 0.5,
         "log_base": 10,
+        "transform": "clr",
         "n_permutations": 1000,
         "include_interaction": true,
         "top_n": 25
@@ -435,36 +443,37 @@
     ],
     "notes": {
       "proteins_in_merged_matrix": 4449,
-      "proteins_kept": 944,
+      "proteins_kept": 1188,
       "threshold_per_dataset": 1.0,
       "values_imputed_half_minimum": 0,
       "share_imputed": 0.0,
       "log_base": 10,
-      "mass_fraction_covered_by_kept_proteins_min": 0.747816315450001,
-      "n_conditions": 27,
-      "n_proteins": 944,
+      "transform": "clr",
+      "mass_fraction_covered_by_kept_proteins_min": 0.8032611729100008,
+      "n_conditions": 28,
+      "n_proteins": 1188,
       "n_permutations": 1000,
-      "batch_key": "Dataset_Source",
+      "batch_key": "MS_Batch",
       "growth_coding": "continuous, centred, 1 df",
       "interaction_included": true,
-      "interaction_df": 3,
+      "interaction_df": 5,
       "p_interaction": 0.012987012987012988,
-      "interaction_pseudo_F": 2.1605587791759797,
+      "interaction_pseudo_F": 1.8844265252542283,
       "interaction_test": "Freedman-Lane, pseudo-F, residuals permuted within batch",
       "p_growth": 0.000999000999000999,
       "SS_fraction": {
-        "Dataset": 0.5594987217106346,
-        "Growth rate | dataset": 0.1713175397619257,
-        "Dataset x growth rate": 0.06847123577545126,
-        "Residual": 0.20071250275198835,
+        "Dataset": 0.601873990114907,
+        "Growth rate | dataset": 0.16399776040161815,
+        "Dataset x growth rate": 0.08677428643064893,
+        "Residual": 0.14735396305282583,
         "Total (centred)": 1.0
       }
     }
   },
   "05_prediction_validation": {
-    "timestamp_utc": "2026-10-12T15:10:11+00:00",
+    "timestamp_utc": "2026-10-13T10:30:06+00:00",
     "config_file": "config.yml",
-    "config_sha256": "0fedda05cf995b97f47962f1d3b5962606c12d3967a464fca36cb0d52887fbde",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
     "seed": 20261011,
     "environment": {
       "python": "3.13.2",
@@ -504,11 +513,11 @@
       "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\05_split_membership.tsv"
     ],
     "notes": {
-      "rmse_model": 0.411311485103067,
-      "rmse_baseline": 0.6010050842431093,
-      "mae_model": 0.3118074079366274,
-      "q2_vs_baseline": 0.5316339781480479,
-      "p_permutation": 0.03980099502487562,
+      "rmse_model": 0.3627538887890344,
+      "rmse_baseline": 0.5335242647943946,
+      "mae_model": 0.27321995783272784,
+      "q2_vs_baseline": 0.5377086134770913,
+      "p_permutation": 0.004975124378109453,
       "final_n_components": 1,
       "n_configurations_tried": 15,
       "features": [
@@ -537,6 +546,57 @@
         "R",
         "S"
       ]
+    }
+  },
+  "06_sensitivity_censoring": {
+    "timestamp_utc": "2026-10-13T10:32:03+00:00",
+    "config_file": "config.yml",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
+    "seed": 20261011,
+    "environment": {
+      "python": "3.13.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "matplotlib": "3.11.2",
+        "openpyxl": "3.1.5",
+        "PyYAML": "6.0.3",
+        "joblib": "1.6.0",
+        "requests": "2.34.2",
+        "anndata": null
+      }
+    },
+    "parameters": {
+      "detection_target": 0.5,
+      "bin_step": 0.25,
+      "min_proteins_per_bin": 10,
+      "common_floor_log10": -4.125,
+      "scenarios": [
+        "A \u00b7 zero (notebook 03)",
+        "B \u00b7 common floor",
+        "C \u00b7 impute \u00bd LLOD",
+        "D \u00b7 impute LLOD (upper bound)"
+      ]
+    },
+    "inputs_sha256": {},
+    "outputs": [
+      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_batch_detection_limits.tsv",
+      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_sensitivity_summary.tsv",
+      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_sensitivity_slopes.tsv",
+      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_protein_filter_alternatives.tsv"
+    ],
+    "notes": {
+      "LLOD50_log10": {
+        "mori_2021": -5.38,
+        "Group3": -4.62,
+        "schmidt_2016": -4.62,
+        "Group1": -4.38,
+        "Group2": -4.38,
+        "Zhu_2025": -4.12
+      }
     }
   }
 }

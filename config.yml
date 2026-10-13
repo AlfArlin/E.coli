@@ -1,8 +1,7 @@
 # =============================================================================
-# Proteome allocation pipeline - single source of truth for every parameter.
-# Nothing in src/ or notebooks/ hardcodes a threshold, file name, seed or column.
+# Proteome allocation pipeline
 # =============================================================================
-project: "E. coli proteome allocation vs growth rate (COG functional groups)"
+project: "E. coli proteome allocation associated with growth rate"
 
 seed: 20261011 # master seed; every stochastic step derives its stream from it
 n_jobs: 2 # joblib workers for bootstrap / permutation (results do not depend on it)
@@ -32,7 +31,7 @@ datasets:
     original_unit: "protein copies per cell (converted here: copies*MW / sum(copies*MW))"
   mori_2021:
     abundance_file: "2.3MOESM8_ESM.xlsx"
-    abundance_sheets: ["EV8-AbsoluteMassFractions-1"] # add further sheets here if samples live elsewhere
+    abundance_sheets: ["EV8-AbsoluteMassFractions-1"]
     samples_file: "2.6MOESM2_ESM.xlsx"
     samples_sheets: ["EV2-Samples-1"]
     locus_col: "Gene locus"
@@ -41,6 +40,8 @@ datasets:
     strain_col: "Strain"
     strain_contains: "NCM3722"
     doubling_time_col: "Doubling time (min)"
+    default_temperature_C: 37
+    temperature_shift_C: 42
     original_unit: "absolute protein mass fraction"
   wu_2023:
     file: "3.1CHEN41564_2022_1310_MOESM3_ESM.xlsx"
@@ -110,7 +111,7 @@ annotation:
 # -------------------------------------------------------------- allocation ---
 allocation:
   renormalise: true # divide each sample by its own sum so every profile sums to exactly 1
-  batch_key: Dataset_Source
+  batch_key: MS_Batch
   condition_key: Condition_ID
   growth_key: "Specific_Growth_Rate_h-1"
   min_mean_fraction: 0.001 # categories below this mean mass fraction are reported but not tested
@@ -128,6 +129,7 @@ asca:
   min_detect_fraction_per_dataset: 1.0 # 1.0 = protein quantified in every in-scope sample of every dataset -> no imputation
   half_min_factor: 0.5 # only used if the threshold above is < 1.0 (per-sample half-minimum)
   log_base: 10
+  transform: clr # clr = centred log-ratio (compositional data); log = plain log10
   n_permutations: 1000
   include_interaction: true # batch x growth-rate term: do batches agree on each protein's slope?
   top_n: 25

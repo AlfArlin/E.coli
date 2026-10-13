@@ -1,28 +1,29 @@
-Condition	n_replicates	Specific_Growth_Rate_h-1	growth_sd	Dataset_Source	samples
-schmidt_2016|LB	1	2.3		schmidt_2016	LB
-schmidt_2016|Glucose_Minimal	1	1.03		schmidt_2016	Glucose
-mori_2021|Acetate	1	0.5010702510071894		mori_2021	Lib-06
-mori_2021|Kanamycin	1	0.7426576934570842		mori_2021	Lib-07
-mori_2021|Poor N	1	0.2403978660901544		mori_2021	Lib-15
-mori_2021|Carbon 46	1	0.9041050181216675		mori_2021	Lib-24
-mori_2021|Carbon 37	1	1.1240224549620734		mori_2021	Lib-26
-mori_2021|Carbon 85	1	0.4892803627481966		mori_2021	Lib-27
-mori_2021|Carbon 50	1	0.8317766166719343		mori_2021	Lib-28
-mori_2021|Carbon 54	1	0.7701635339554948		mori_2021	Lib-29
-mori_2021|Carbon 49	1	0.8487516496652392		mori_2021	Lib-30
-wu_2023|Glucose_Minimal	9	0.9577777777777777	0.00440958551844097	wu_2023	M1;P1;A1;A2;A3_4;A3_5;A3_6;A3_7;A3_8
-wu_2023|RDM_Glucose	1	1.77		wu_2023	N5
-wu_2023|RDM	1	1.42		wu_2023	N6
-wu_2023|CAA_Glucose	1	1.58		wu_2023	N7
-wu_2023|CAA	1	1.32		wu_2023	N8
-wu_2023|LB_Broth	1	2.19		wu_2023	O8
-wu_2023|18AA_Glycerol	2	1.45	0.0	wu_2023	S1;A29
-wu_2023|Glycerol_Minimal	3	0.67	0.0	wu_2023	A26;A27;A28
-wu_2023|18AA_minus_ser_Glycerol	1	1.17		wu_2023	A30
-wu_2023|18AA_minus_ser_met_Glycerol	1	0.98		wu_2023	A31
-zhu_2025|Glucose_37C	2	0.9345	0.02050609665440982	zhu_2025	F12;K6
-zhu_2025|Glc_Glut_37C	1	1.0		zhu_2025	F13
-zhu_2025|LB_37C	1	1.9		zhu_2025	F13-1
-zhu_2025|Glc_CAA_37C	1	1.2		zhu_2025	F13-2
-zhu_2025|Glycerol_37C	1	0.67		zhu_2025	F13-3
-zhu_2025|Mannose_37C	1	0.42		zhu_2025	F13-4
+Condition	n_replicates	Specific_Growth_Rate_h-1	growth_sd	Dataset_Source	samples	MS_Batch
+schmidt_2016|LB	1	2.3		schmidt_2016	LB	schmidt_2016
+schmidt_2016|Glucose_Minimal	1	1.03		schmidt_2016	Glucose	schmidt_2016
+mori_2021|Acetate	1	0.5010702510071894		mori_2021	Lib-06	mori_2021
+mori_2021|Carbon 46	1	0.9041050181216675		mori_2021	Lib-24	mori_2021
+mori_2021|Carbon 37	1	1.1240224549620734		mori_2021	Lib-26	mori_2021
+mori_2021|Carbon 85	1	0.4892803627481966		mori_2021	Lib-27	mori_2021
+mori_2021|Carbon 50	1	0.8317766166719343		mori_2021	Lib-28	mori_2021
+mori_2021|Carbon 54	1	0.7701635339554948		mori_2021	Lib-29	mori_2021
+mori_2021|Carbon 49	1	0.8487516496652392		mori_2021	Lib-30	mori_2021
+Group1|Glucose_Minimal	1	0.96		wu_2023	M1	Group1
+Group1|RDM_Glucose	1	1.77		wu_2023	N5	Group1
+Group1|RDM	1	1.42		wu_2023	N6	Group1
+Group1|CAA_Glucose	1	1.58		wu_2023	N7	Group1
+Group1|CAA	1	1.32		wu_2023	N8	Group1
+Group1|LB_Broth	1	2.19		wu_2023	O8	Group1
+Group2|Glucose_Minimal	1	0.95		wu_2023	P1	Group2
+Group2|18AA_Glycerol	1	1.45		wu_2023	S1	Group2
+Group3|Glucose_Minimal	7	0.9585714285714285	0.003779644730092266	wu_2023	A1;A2;A3_4;A3_5;A3_6;A3_7;A3_8	Group3
+Group3|Glycerol_Minimal	3	0.67	0.0	wu_2023	A26;A27;A28	Group3
+Group3|18AA_Glycerol	1	1.45		wu_2023	A29	Group3
+Group3|18AA_minus_ser_Glycerol	1	1.17		wu_2023	A30	Group3
+Group3|18AA_minus_ser_met_Glycerol	1	0.98		wu_2023	A31	Group3
+Zhu_2025|Glucose_37C	1	0.92		zhu_2025	F12	Zhu_2025
+Zhu_2025|Glc_Glut_37C	1	1.0		zhu_2025	F13	Zhu_2025
+Zhu_2025|LB_37C	1	1.9		zhu_2025	F13-1	Zhu_2025
+Zhu_2025|Glc_CAA_37C	1	1.2		zhu_2025	F13-2	Zhu_2025
+Zhu_2025|Glycerol_37C	1	0.67		zhu_2025	F13-3	Zhu_2025
+Zhu_2025|Mannose_37C	1	0.42		zhu_2025	F13-4	Zhu_2025

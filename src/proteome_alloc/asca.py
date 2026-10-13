@@ -54,10 +54,17 @@ def prepare_protein_matrix(X: pd.DataFrame, obs: pd.DataFrame, cfg: Config):
         half_min = X.where(X > 0).min(axis=1) * float(p["half_min_factor"])
         kept = kept.where(kept > 0, np.nan).apply(lambda col: col.fillna(half_min))
     logged = np.log(kept) / np.log(float(p["log_base"]))
+    transform = p.get("transform", "log")
+    if transform == "clr":
+        # centred log-ratio: each protein relative to the geometric mean of the retained proteins
+        # in the same sample (removes the per-sample closure term shared by all proteins)
+        logged = logged.sub(logged.mean(axis=1), axis=0)
+    elif transform != "log":
+        raise ValueError("asca.transform must be 'log' or 'clr'")
     report = {"proteins_in_merged_matrix": int(X.shape[1]), "proteins_kept": int(keep.sum()),
               "threshold_per_dataset": threshold, "values_imputed_half_minimum": n_imputed,
               "share_imputed": n_imputed / float(kept.size) if kept.size else 0.0,
-              "log_base": p["log_base"],
+              "log_base": p["log_base"], "transform": transform,
               "mass_fraction_covered_by_kept_proteins_min": float(X.loc[:, keep].sum(axis=1).min())}
     return logged, report
 
@@ -214,6 +221,8 @@ def run_asca(L: pd.DataFrame, info: pd.DataFrame, cfg: Config, gene_names: pd.Se
     }, index=L.columns)
     protein_table.index.name = "b_number"
     params = {"n_conditions": n, "n_proteins": int(L.shape[1]), "n_permutations": n_perm,
+              "transform": p.get("transform", "log"),
+              "batch_key": batch_key, "growth_coding": "continuous, centred, 1 df",
               "batch_key": batch_key, "growth_coding": "continuous, centred, 1 df",
               "interaction_included": include_interaction, "interaction_df": df_inter,
               "p_interaction": p_inter, "interaction_pseudo_F": observed_inter,

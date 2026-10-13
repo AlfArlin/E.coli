@@ -1,0 +1,10 @@
+rule	proteins kept	cells needing imputation (%)	proteome mass covered, min over runs (%)
+AND over datasets, 100 % (notebook 04 default)	1188	0.0	80.3
+AND over datasets, 80 %	1416	0.9	91.0
+AND over batches, 100 %	1188	0.0	80.3
+Global: pooled over all runs, 80 %	1539	2.0	94.4
+OR over datasets, 80 % (original notebook rule)	2247	20.4	98.7
+AND over datasets, 100 %, without mori_2021	1222	0.1	81.4
+AND over datasets, 100 %, without schmidt_2016	1203	0.1	82.4
+AND over datasets, 100 %, without wu_2023	1367	2.1	81.3
+AND over datasets, 100 %, without zhu_2025	1238	0.4	86.3
