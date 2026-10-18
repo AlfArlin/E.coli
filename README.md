@@ -47,9 +47,6 @@ raw supplementary tables ──► 01 ingest & harmonise ──► 02 metadata, 
 | 6 | `06_sensitivity_censoring` | repeats the notebook-03 model under four treatments of left-censored (undetected) values |
 | 7 | `07_figures` | redraws all final figures from the saved results in one consistent style (no statistics recomputed) |
 
-Every notebook starts with a markdown cell explaining **why** the step is needed, and each code
-cell is preceded by the reasoning behind it. The functions the notebooks call are in
-`src/proteome_alloc/` and each has a docstring explaining what it does and why.
 
 ## Repository layout
 
@@ -69,8 +66,6 @@ results/figures/        figures written by notebooks 01–06; final/ = figures f
 results/tables/         result tables (TSV), prefixed with the notebook number
 results/run_log.json    per step: parameters, input checksums, package versions, outputs
 ```
-
-Raw data, code and generated results are kept in separate folders.
 
 ## How to run
 
@@ -92,10 +87,6 @@ python run_all.py --from 3     # restart from notebook 03
 committed notebooks always show the outputs of a clean, complete run. Alternatively, open the
 notebooks in JupyterLab and run them one by one **in numerical order** (each one reads the files
 written by the previous ones).
-
-No manual step and no internet connection are needed: the data and the annotation cache are in
-the repository. `python run_all.py --refresh-annotation` re-downloads the UniProt and COG files
-(this changes the annotation if the databases have been updated since the cached release).
 
 ## Reproducibility
 
