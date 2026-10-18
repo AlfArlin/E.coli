@@ -1,0 +1,602 @@
+{
+  "01_ingest_harmonise": {
+    "timestamp_utc": "2026-10-14T17:09:48+00:00",
+    "config_file": "config.yml",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
+    "seed": 20261011,
+    "environment": {
+      "python": "3.13.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "matplotlib": "3.11.2",
+        "openpyxl": "3.1.5",
+        "PyYAML": "6.0.3",
+        "joblib": "1.6.0",
+        "requests": "2.34.2",
+        "anndata": null
+      }
+    },
+    "parameters": {
+      "datasets": {
+        "schmidt_2016": {
+          "file": "1.1The quantitative and condition-dependent Escherichia coli proteome.xlsx",
+          "abundance_sheet": "Table S9",
+          "growth_sheet": "Table S23",
+          "skiprows": 2,
+          "strain": "NCM3722",
+          "copies_prefix": "Copies/Cell_{strain}.",
+          "accession_col": "Uniprot Accession",
+          "gene_col": "Gene",
+          "mw_col": "proteinMW",
+          "growth_condition_col": "Growth condition",
+          "growth_rate_col": "Growth rate (h-1)",
+          "growth_strain_col": "Strain",
+          "metadata": "metadata/schmidt_2016_samples.tsv",
+          "original_unit": "protein copies per cell (converted here: copies*MW / sum(copies*MW))"
+        },
+        "mori_2021": {
+          "abundance_file": "2.3MOESM8_ESM.xlsx",
+          "abundance_sheets": [
+            "EV8-AbsoluteMassFractions-1"
+          ],
+          "samples_file": "2.6MOESM2_ESM.xlsx",
+          "samples_sheets": [
+            "EV2-Samples-1"
+          ],
+          "locus_col": "Gene locus",
+          "gene_col": "Gene name",
+          "sample_id_col": "Sample ID",
+          "strain_col": "Strain",
+          "strain_contains": "NCM3722",
+          "doubling_time_col": "Doubling time (min)",
+          "default_temperature_C": 37,
+          "temperature_shift_C": 42,
+          "original_unit": "absolute protein mass fraction"
+        },
+        "wu_2023": {
+          "file": "3.1CHEN41564_2022_1310_MOESM3_ESM.xlsx",
+          "sheets": {
+            "Group1": "Group #1 protein mass fractions",
+            "Group2": "Group #2 protein mass fractions",
+            "Group3": "Group #3 protein mass fractions"
+          },
+          "locus_col": "Gene locus",
+          "gene_col": "Gene name",
+          "metadata": "metadata/wu_2023_samples.tsv",
+          "original_unit": "absolute protein mass fraction"
+        },
+        "zhu_2025": {
+          "files": [
+            "4.1. Zhu_SD01.xlsx",
+            "4.2Zhu_SD02.xlsx"
+          ],
+          "locus_col": "gene locus",
+          "gene_col": "gene name",
+          "metadata": "metadata/zhu_2025_samples.tsv",
+          "original_unit": "absolute protein mass fraction"
+        }
+      },
+      "ingest": {
+        "locus_regex": "^b\\d{4}$",
+        "sample_sum_bounds": [
+          0.9,
+          1.05
+        ],
+        "strict_missing_samples": false
+      },
+      "annotation": {
+        "uniprot_url": "https://rest.uniprot.org/uniprotkb/stream",
+        "uniprot_query": "(organism_id:83333) AND (reviewed:true)",
+        "uniprot_fields": "accession,gene_oln,gene_primary,mass,xref_eggnog",
+        "uniprot_file": "uniprot_ecoli_k12.tsv",
+        "cog_def_url": "https://ftp.ncbi.nlm.nih.gov/pub/COG/COG2020/data/cog-20.def.tab",
+        "cog_def_file": "cog-20.def.tab",
+        "cog_categories": "metadata/cog_categories.tsv",
+        "output_file": "protein_cog_annotation.tsv",
+        "multi_category": "split",
+        "unassigned_label": "-"
+      }
+    },
+    "inputs_sha256": {
+      "1.1The quantitative and condition-dependent Escherichia coli proteome.xlsx": "6e073952c986252185a50ae0f080fdadd4ba954051006965b4195d7c879893f8",
+      "2.3MOESM8_ESM.xlsx": "15795fc3405735fdfb607d2344d14ca84ac0c3320c89fea0336731874b94b854",
+      "2.6MOESM2_ESM.xlsx": "2bb6c8c3b647740c6fe371fc39bf1bb9e69484d0fff264b67e05f61b86062eb9",
+      "3.1CHEN41564_2022_1310_MOESM3_ESM.xlsx": "ed14955fc48c2f241bf6ad6d65ee829a166ee8e7b12e2666caae669f3fadf71f",
+      "4.1. Zhu_SD01.xlsx": "a6546f1c81d127c93dfa2f424698dbed7f10c6a43947363e7c0139d507a16962",
+      "4.2Zhu_SD02.xlsx": "ea3c7bc5df6820f127d3131dc3283ecfaabbb08aeedfa9255be98bcc9e3df8ca",
+      "annotation/cog-20.def.tab": "00e93e42f38f6ada46ef6be5da4a8518829300ea29f2888261660de0ca2f7e77",
+      "annotation/protein_cog_annotation.tsv": "b7c9862d77dc2d64dda6ccb8a3c076dcad3a45349433157598b3751bc63950f1",
+      "annotation/provenance.json": "589c961bfaf1a282693c2f1fa3a3a21d725e88fb52141c3a9dcc712701c86cfd",
+      "annotation/README.md": "e0c3da83736cd3b57c3ea1f51b1a754834a503001ba3edb729ba2102ef6aba27",
+      "annotation/uniprot_ecoli_k12.tsv": "8ef61146b6fcaa5e365a8f9237a5ba0f6439a0b43e47eaa70cca2f62f6814fed",
+      "metadata/cog_categories.tsv": "c6091b7f0e35c6904ac6a93ee277bb2e6765dfa251dfae544e8e18019a99527a",
+      "metadata/schmidt_2016_samples.tsv": "1eabec8eec725562f919273f06fbc465478d13948b41ba98d7a8c19c099a9287",
+      "metadata/scope_overrides.tsv": "6e28e75040965b5a5ffab3a72e6c1d3b4f32116de784e07186748be2767ef702",
+      "metadata/wu_2023_samples.tsv": "4dc50cd88c45a360a840361640eb9181e5a7b7e3035e04807e3edf0931fa0499",
+      "metadata/zhu_2025_samples.tsv": "66329b1dc29291f3c9d205c7352ac1e4188405608cb32bb83139c310cc7824be"
+    },
+    "outputs": [
+      "data/processed/mass_fractions.tsv.gz",
+      "data/processed/sample_metadata.tsv",
+      "data/processed/protein_table.tsv"
+    ],
+    "notes": {
+      "schmidt_2016": {
+        "rows_mw_filled_from_uniprot": 0,
+        "rows_dropped_no_mw_or_no_copies": 19,
+        "rows_unmapped_accession_dropped": 32,
+        "mass_fraction_lost_unmapped_per_sample": {
+          "LB": 0.00416,
+          "Glucose": 0.00446
+        },
+        "rows_invalid_locus_dropped": 0,
+        "mass_fraction_in_invalid_locus_rows_max": 0.0,
+        "cells_non_numeric_set_to_zero": 0,
+        "duplicated_locus_rows_summed": 1,
+        "sample_sum_min": 0.9955403249650412,
+        "sample_sum_max": 0.9958413498064453,
+        "samples_outside_sum_bounds": {},
+        "n_samples": 2,
+        "n_loci": 1986,
+        "detected_per_sample_median": 1986.0
+      },
+      "mori_2021": {
+        "abundance_file_sheets_available": [
+          "Description",
+          "EV8-AbsoluteMassFractions-1"
+        ],
+        "samples_file_sheets_available": [
+          "Description",
+          "EV2-Samples-1"
+        ],
+        "samples_other_strain_dropped": 30,
+        "samples_in_metadata_not_in_files": [
+          "Lib-31-A1",
+          "Lib-31-A2",
+          "Lib-32-A1",
+          "Lib-32-A2"
+        ],
+        "samples_without_growth_rate": [
+          "Lib-14",
+          "Lib-19",
+          "Lib-20",
+          "Lib-21",
+          "Lib-22",
+          "Lib-31-A1",
+          "Lib-31-A2",
+          "Lib-32-A1",
+          "Lib-32-A2"
+        ],
+        "rows_invalid_locus_dropped": 0,
+        "mass_fraction_in_invalid_locus_rows_max": 0.0,
+        "cells_non_numeric_set_to_zero": 0,
+        "duplicated_locus_rows_summed": 0,
+        "sample_sum_min": 0.9999999791638581,
+        "sample_sum_max": 1.00000001026427,
+        "samples_outside_sum_bounds": {},
+        "n_samples": 19,
+        "n_loci": 4324,
+        "detected_per_sample_median": 2024.0
+      },
+      "wu_2023": {
+        "samples_in_metadata_not_in_files": [
+          "A3"
+        ],
+        "rows_invalid_locus_dropped": 1,
+        "mass_fraction_in_invalid_locus_rows_max": 0.0,
+        "cells_non_numeric_set_to_zero": 0,
+        "duplicated_locus_rows_summed": 0,
+        "sample_sum_min": 0.9999998633580011,
+        "sample_sum_max": 1.0000001654650001,
+        "samples_outside_sum_bounds": {},
+        "n_samples": 21,
+        "n_loci": 4324,
+        "detected_per_sample_median": 1792.0
+      },
+      "zhu_2025": {
+        "sample_found_in": {
+          "F12": "4.1. Zhu_SD01.xlsx / Ecoli batch F",
+          "F13": "4.1. Zhu_SD01.xlsx / Ecoli batch F",
+          "F13-1": "4.1. Zhu_SD01.xlsx / Ecoli batch F",
+          "F13-2": "4.1. Zhu_SD01.xlsx / Ecoli batch F",
+          "F13-3": "4.1. Zhu_SD01.xlsx / Ecoli batch F",
+          "F13-4": "4.1. Zhu_SD01.xlsx / Ecoli batch F",
+          "K1": "4.1. Zhu_SD01.xlsx / Ecoli batch K",
+          "K2": "4.1. Zhu_SD01.xlsx / Ecoli batch K",
+          "K3": "4.1. Zhu_SD01.xlsx / Ecoli batch K",
+          "K4": "4.1. Zhu_SD01.xlsx / Ecoli batch K",
+          "K5": "4.1. Zhu_SD01.xlsx / Ecoli batch K",
+          "K6": "4.1. Zhu_SD01.xlsx / Ecoli batch K"
+        },
+        "samples_in_metadata_not_in_files": [],
+        "rows_invalid_locus_dropped": 39,
+        "mass_fraction_in_invalid_locus_rows_max": 0.0,
+        "cells_non_numeric_set_to_zero": 0,
+        "duplicated_locus_rows_summed": 0,
+        "sample_sum_min": 0.998427,
+        "sample_sum_max": 0.9995370000000001,
+        "samples_outside_sum_bounds": {},
+        "n_samples": 12,
+        "n_loci": 4350,
+        "detected_per_sample_median": 1434.5
+      }
+    }
+  },
+  "02_metadata_scope_qc": {
+    "timestamp_utc": "2026-10-14T17:16:24+00:00",
+    "config_file": "config.yml",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
+    "seed": 20261011,
+    "environment": {
+      "python": "3.13.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "matplotlib": "3.11.2",
+        "openpyxl": "3.1.5",
+        "PyYAML": "6.0.3",
+        "joblib": "1.6.0",
+        "requests": "2.34.2",
+        "anndata": null
+      }
+    },
+    "parameters": {
+      "scope": {
+        "name": "nutrient_quality",
+        "strain_contains": "NCM3722",
+        "reference_temperature_C": 37,
+        "cultivation_method": "Batch",
+        "perturbation_rules": {
+          "temperature": [
+            "\\btemp",
+            "heat",
+            "cold"
+          ],
+          "osmotic": [
+            "\\bosm",
+            "nacl",
+            "sorbitol"
+          ],
+          "ph": [
+            "\\bpH\\b"
+          ],
+          "anaerobic": [
+            "anaerob",
+            "anoxic"
+          ],
+          "stationary": [
+            "stationary",
+            "\\bstat\\b",
+            "starv"
+          ],
+          "antibiotic": [
+            "chloramphenicol",
+            "\\bcm\\b",
+            "tetracycline",
+            "rifamp",
+            "antibiotic",
+            "erythromycin"
+          ],
+          "oxidative": [
+            "h2o2",
+            "oxidat",
+            "paraquat",
+            "peroxide"
+          ],
+          "limitation": [
+            "limit",
+            "titrat",
+            "chemostat"
+          ],
+          "overexpression": [
+            "overexp",
+            "iptg",
+            "induc"
+          ]
+        },
+        "special_medium_regex": [
+          "^special"
+        ],
+        "special_procedure_is_perturbation": true,
+        "overrides": "metadata/scope_overrides.tsv"
+      }
+    },
+    "inputs_sha256": {
+      "metadata/scope_overrides.tsv": "6e28e75040965b5a5ffab3a72e6c1d3b4f32116de784e07186748be2767ef702"
+    },
+    "outputs": [
+      "data/processed/sample_metadata_scoped.tsv"
+    ],
+    "notes": {
+      "n_runs_in_scope": 36,
+      "n_conditions_in_scope": 25,
+      "perturbation_counts": {
+        "nutrient_quality": 36,
+        "temperature": 6,
+        "osmotic": 3,
+        "stationary": 2,
+        "other_perturbation": 2,
+        "anaerobic": 1,
+        "antibiotic": 1,
+        "oxidative": 1,
+        "nitrogen_limitation": 1,
+        "excluded_batch_depth": 1
+      }
+    }
+  },
+  "03_cog_allocation_vs_growth": {
+    "timestamp_utc": "2026-10-14T17:18:27+00:00",
+    "config_file": "config.yml",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
+    "seed": 20261011,
+    "environment": {
+      "python": "3.13.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "matplotlib": "3.11.2",
+        "openpyxl": "3.1.5",
+        "PyYAML": "6.0.3",
+        "joblib": "1.6.0",
+        "requests": "2.34.2",
+        "anndata": null
+      }
+    },
+    "parameters": {
+      "allocation": {
+        "renormalise": true,
+        "batch_key": "MS_Batch",
+        "condition_key": "Condition_ID",
+        "growth_key": "Specific_Growth_Rate_h-1",
+        "min_mean_fraction": 0.001,
+        "n_permutations": 9999,
+        "n_bootstrap": 4000,
+        "ci_level": 0.95,
+        "fdr_alpha": 0.05
+      },
+      "multi_category": "split",
+      "proteomap": {
+        "conditions": "auto",
+        "label_min_share": 0.006,
+        "conditions_drawn": [
+          "Zhu_2025|Mannose_37C",
+          "Zhu_2025|LB_37C"
+        ]
+      }
+    },
+    "inputs_sha256": {},
+    "outputs": [
+      "results/tables/03_cog_fractions_per_run.tsv",
+      "results/tables/03_cog_fractions_per_condition.tsv",
+      "results/tables/03_condition_table.tsv",
+      "results/tables/03_cog_growth_slopes.tsv",
+      "results/tables/03_annotation_coverage.tsv",
+      "results/tables/03_cog_fractions_combined_display.tsv",
+      "results/tables/03_proteome_shift_per_condition.tsv",
+      "results/tables/03_proteomap_category_change.tsv"
+    ],
+    "notes": {
+      "n_conditions": 28,
+      "conditions_per_dataset": {
+        "mori_2021": 7,
+        "Group1": 6,
+        "Zhu_2025": 6,
+        "Group3": 5,
+        "schmidt_2016": 2,
+        "Group2": 2
+      },
+      "n_permutations": 9999,
+      "n_bootstrap": 4000,
+      "bootstrap_failed_draws": 0,
+      "smallest_attainable_p": 0.0001
+    }
+  },
+  "04_asca_protein_level": {
+    "timestamp_utc": "2026-10-14T17:30:25+00:00",
+    "config_file": "config.yml",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
+    "seed": 20261011,
+    "environment": {
+      "python": "3.13.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "matplotlib": "3.11.2",
+        "openpyxl": "3.1.5",
+        "PyYAML": "6.0.3",
+        "joblib": "1.6.0",
+        "requests": "2.34.2",
+        "anndata": null
+      }
+    },
+    "parameters": {
+      "asca": {
+        "min_detect_fraction_per_dataset": 1.0,
+        "half_min_factor": 0.5,
+        "log_base": 10,
+        "transform": "clr",
+        "n_permutations": 1000,
+        "include_interaction": true,
+        "top_n": 25
+      }
+    },
+    "inputs_sha256": {},
+    "outputs": [
+      "results/tables/04_asca_variance_partition.tsv",
+      "results/tables/04_asca_protein_slopes.tsv",
+      "results/tables/04_asca_cog_summary.tsv",
+      "results/tables/04_asca_condition_scores.tsv",
+      "results/tables/04_pca_scores_before_after.tsv"
+    ],
+    "notes": {
+      "proteins_in_merged_matrix": 4449,
+      "proteins_kept": 1188,
+      "threshold_per_dataset": 1.0,
+      "values_imputed_half_minimum": 0,
+      "share_imputed": 0.0,
+      "log_base": 10,
+      "transform": "clr",
+      "mass_fraction_covered_by_kept_proteins_min": 0.8032611729100008,
+      "n_conditions": 28,
+      "n_proteins": 1188,
+      "n_permutations": 1000,
+      "batch_key": "MS_Batch",
+      "growth_coding": "continuous, centred, 1 df",
+      "interaction_included": true,
+      "interaction_df": 5,
+      "p_interaction": 0.012987012987012988,
+      "interaction_pseudo_F": 1.8844265252542283,
+      "interaction_test": "Freedman-Lane, pseudo-F, residuals permuted within batch",
+      "p_growth": 0.000999000999000999,
+      "SS_fraction": {
+        "Dataset": 0.601873990114907,
+        "Growth rate | dataset": 0.16399776040161815,
+        "Dataset x growth rate": 0.08677428643064893,
+        "Residual": 0.14735396305282583,
+        "Total (centred)": 1.0
+      }
+    }
+  },
+  "05_prediction_validation": {
+    "timestamp_utc": "2026-10-14T17:36:41+00:00",
+    "config_file": "config.yml",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
+    "seed": 20261011,
+    "environment": {
+      "python": "3.13.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "matplotlib": "3.11.2",
+        "openpyxl": "3.1.5",
+        "PyYAML": "6.0.3",
+        "joblib": "1.6.0",
+        "requests": "2.34.2",
+        "anndata": null
+      }
+    },
+    "parameters": {
+      "prediction": {
+        "n_components_grid": [
+          1,
+          2,
+          3
+        ],
+        "exclude_features": [
+          "-"
+        ],
+        "n_permutations": 200
+      }
+    },
+    "inputs_sha256": {},
+    "outputs": [
+      "results/tables/05_predictions.tsv",
+      "results/tables/05_outer_folds.tsv",
+      "results/tables/05_tuning_trials.tsv",
+      "results/tables/05_pls_coefficients.tsv",
+      "results/tables/05_split_membership.tsv"
+    ],
+    "notes": {
+      "rmse_model": 0.3627538887890344,
+      "rmse_baseline": 0.5335242647943946,
+      "mae_model": 0.27321995783272784,
+      "q2_vs_baseline": 0.5377086134770913,
+      "p_permutation": 0.004975124378109453,
+      "final_n_components": 1,
+      "n_configurations_tried": 15,
+      "features": [
+        "J",
+        "A",
+        "K",
+        "L",
+        "D",
+        "V",
+        "T",
+        "M",
+        "N",
+        "Z",
+        "W",
+        "U",
+        "O",
+        "X",
+        "C",
+        "G",
+        "E",
+        "F",
+        "H",
+        "I",
+        "P",
+        "Q",
+        "R",
+        "S"
+      ]
+    }
+  },
+  "06_sensitivity_censoring": {
+    "timestamp_utc": "2026-10-14T17:43:15+00:00",
+    "config_file": "config.yml",
+    "config_sha256": "2f3fd82bab4e61ceac0799bcc647de46446be495ec62c7dd8169b204a664a5ac",
+    "seed": 20261011,
+    "environment": {
+      "python": "3.13.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1",
+        "matplotlib": "3.11.2",
+        "openpyxl": "3.1.5",
+        "PyYAML": "6.0.3",
+        "joblib": "1.6.0",
+        "requests": "2.34.2",
+        "anndata": null
+      }
+    },
+    "parameters": {
+      "detection_target": 0.5,
+      "bin_step": 0.25,
+      "min_proteins_per_bin": 10,
+      "common_floor_log10": -4.125,
+      "scenarios": [
+        "A \u00b7 zero (notebook 03)",
+        "B \u00b7 common floor",
+        "C \u00b7 impute \u00bd LLOD",
+        "D \u00b7 impute LLOD (upper bound)"
+      ]
+    },
+    "inputs_sha256": {},
+    "outputs": [
+      "results/tables/06_batch_detection_limits.tsv",
+      "results/tables/06_sensitivity_summary.tsv",
+      "results/tables/06_sensitivity_slopes.tsv",
+      "results/tables/06_protein_filter_alternatives.tsv"
+    ],
+    "notes": {
+      "LLOD50_log10": {
+        "mori_2021": -5.38,
+        "Group3": -4.62,
+        "schmidt_2016": -4.62,
+        "Group1": -4.38,
+        "Group2": -4.38,
+        "Zhu_2025": -4.12
+      }
+    }
+  }
+}

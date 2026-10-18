@@ -1,6 +1,6 @@
-# Versions below are the ones the pipeline and the smoke test were run with.
-# After creating the environment on your machine, run `python tests/smoke_test.py`
-# and export the exact resolved set with:  pip freeze > requirements-lock.txt
+# Exact versions the pipeline was run and verified with (Windows 11 and Linux).
+# Create with:  conda env create -f environment.yml   then:  conda activate proteome-allocation
+# Run with:     python run_all.py
 name: proteome-allocation
 channels:
   - conda-forge
