@@ -4,8 +4,7 @@
 
 ## Research question
 
-Which functional protein groups (COG categories) of the *E. coli* K-12 proteome take a larger or
-smaller share of the proteome as growth rate changes across nutrient conditions, and does that
+Which functional protein groups (COG categories) of the *E. coli* K-12 proteome are assocated to growth rate changes across nutrient conditions, and does that
 allocation pattern hold across independent studies?
 
 ## Data
