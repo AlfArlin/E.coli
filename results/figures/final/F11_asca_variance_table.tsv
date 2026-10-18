@@ -1,0 +1,6 @@
+	df	SS	% of total	% after removing dataset	mean square (SS/df)	permutation p
+Dataset	5	1100.1	60.2		220.02	
+Growth rate | dataset	1	299.8	16.4	41.2	299.76	<0.001
+Dataset x growth rate	5	158.6	8.7	21.8	31.72	0.013
+Residual	16	269.3	14.7	37.0	16.83	
+Total (centred)	27	1827.8	100.0		67.7	
