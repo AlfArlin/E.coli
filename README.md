@@ -170,7 +170,7 @@ confirmation in further independent studies.
   ## Use of AI tools
 
 In the interest of transparency: this project was developed with the help of an AI assistant,
-Gemini (Google), use during the course (September–October 2026).
+Gemini (Google),and claude io use during the course (September–October 2026).
 
 
 **What I decided and did myself**
