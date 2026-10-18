@@ -35,6 +35,7 @@ raw supplementary tables ──► 01 ingest & harmonise ──► 02 metadata, 
                                                                                └─► 06 sensitivity to missing values
                                                          all saved results ──► 07 final figures
 ```
+<img width="610" height="452" alt="image" src="https://github.com/user-attachments/assets/d1930904-95af-449d-b4b0-3738a7616680" />
 
 | step | notebook | what it does |
 |---|---|---|
@@ -139,6 +140,35 @@ the repository. `python run_all.py --refresh-annotation` re-downloads the UniPro
   is chosen on training data only); scaling is inside the scikit-learn pipeline; results are
   compared with a mean baseline and a permutation null; every tuning trial is saved.
 
+
+
+
+
+## Preliminary findings and open problems
+
+**Merging processed datasets is the main difficulty.** The four studies use different units
+(Schmidt reports copies per cell, the others mass fractions), different instruments and
+different detection depths: the median number of proteins quantified per sample ranges from
+about 1,430 (Zhu) to 2,020 (Mori). Growth rates and sample metadata had to be collected by hand
+from each paper, because they are not in a common format.
+
+**Why the prediction model is not working yet.** On average, the PLS model predicts growth
+rate in a held-out study better than the meanbut it does not transfer to every study.
+The significant dataset × growth-rate interaction in ASCA (p = 0.013) shows that the 
+studies do not fully agree on how the proteome responds,which limits transfer between them.
+
+**Preliminary conclusion.** The categories associated with growth rate follow the known
+bacterial growth laws. Translation and ribosomal proteins (COG J) increase most strongly,
+by about 14 percentage points of the proteome per h⁻¹ (within-dataset R² = 0.92), together
+with chaperones/turnover (O), cell envelope (M) and transcription (K). Amino acid metabolism
+(E), energy production (C), signal transduction (T), inorganic ion and carbohydrate
+transport (P, G) and motility (N) decrease. All these slopes keep their sign when any one
+dataset is left out, and the 14 significant categories are the same under all four
+treatments of missing values (notebook 06). At protein level, amino acid biosynthesis
+enzymes (*leuB*, *ilvB*, *ilvC*, *argD*, *argG*, *serA*, *gdhA*) and uptake systems
+(*dppA*, *gltI*, *argT*) fall most with growth rate, while *ompC*, *rapA*, *deaD* and *fis*
+rise. These are associations across 28 conditions, not causal effects, and they need
+confirmation in further independent studies.
 ## Known limitations
 
 * Schmidt 2016 contributes two NCM3722 conditions in scope, i.e. a single within-dataset contrast.
