@@ -1,4 +1,4 @@
-#Arlin Alfaro Arias -MSB1015 - October 
+##Arlin Alfaro Arias -MSB1015 - October 
 #Proteome allocation protein groups involve ingrowth rate in *E. coli* 
 
 ** Research Question.** Which functional protein of the *E. coli* _K-12 _ proteome are associated with growth rate changes across nutrient conditions,
@@ -43,9 +43,7 @@ Raw data, code and generated results are kept in separate folders.
 conda env create -f environment.yml
 conda activate proteome-allocation
 
-python tests/smoke_test.py      # optional: checks the installation on synthetic data (~1 min)
-
-# put the supplementary Excel files in data/raw/ (names in data/raw/README.md), then
+#To run all the pipeline complete
 python run_all.py               # builds the COG table (first run needs internet) and runs notebooks 01-05
 ```
 
@@ -54,25 +52,28 @@ notebooks contain the outputs of a clean top-to-bottom run. The notebooks can al
 opened and run one by one in Jupyter, in numerical order.
 
 The first run downloads two annotation files (UniProt, E. coli K-12, Swiss-Prot; NCBI
-COG 2020 definitions). They are cached in `data/annotation/` together with URL, date,
-UniProt release and SHA-256. Commit them: later runs are then offline and unaffected by
+COG 2020 definitions) (Riley, 2006; Rudd, 2000).. 
+They are cached in `data/annotation/` together with URL, date,
+UniProt release and SHA-256. 
+
+This is the connection of uniprot with the notebooks, commit them just once, later runs are then offline and unaffected by
 database updates. If the download is blocked, place the files manually (same file names
 as in `config.yml`).
 
-## Design decisions (and why)
+## Design decisions:
 
-* **Same unit in all datasets.** Schmidt reports copies per cell. It is converted with
+* **Same unit in all datasets.** DF01 reports copies per cell. It is converted with
   `N·MW / Σ(N·MW)` (fraction of measured protein mass), the quantity the other studies
   report. No cell-volume or dry-weight constant is needed.
 * **One COG annotation.** b-number → COG id (UniProt eggNOG cross-reference) → category
   letter (COG 2020). A protein with several categories gives an equal share of its mass
   to each (`annotation.multi_category`); proteins without a COG are kept as group `-`.
 * **No imputation in the primary analysis.** Category mass fractions are sums, and an
-  undetected protein contributes zero mass.
+  undetected protein contributes zero mass, therefore we are not imputing proteins that might
+  not be in all datasets due to LLOD.
 * **Scope: nutrient quality.** Batch culture, 37 °C, no stress, antibiotic, stationary
-  or special procedure. Rules are regular expressions in `config.yml`; manual decisions
-  go to `metadata/scope_overrides.tsv` with a reason. Decisions are written to
-  `results/tables/02_scope_decisions.tsv`.
+  or special procedure. The construction of the metadata is structured in `config.yml.
+  Result of this are in results/tables:01_ingest_report.
 * **Condition = statistical unit.** Replicate runs of one medium are averaged first.
 * **Dataset effect.** Each dataset keeps its own intercept; growth effects are estimated
   from within-dataset contrasts only. No batch-correction algorithm is applied to the data.
@@ -114,3 +115,8 @@ Add the full citations and download links of the four papers here before submiss
 * The Mori scope classification is keyword-based and must be reviewed once against the paper.
 * Category fractions sum to 1: a falling category can be passive dilution (see notebook 03, section 4).
 * Internal validation on four studies of one strain; no claim beyond nutrient-limited growth.
+
+
+##References 
+
+Galperin, M. Y., Wolf, Y. I., Makarova, K. S., et al. (2020). COG database update: focus on microbial diversity, model organisms, and widespread pathogens. Nucleic Acids Research, 49, D274–D281. https://doi.org/10.1093/nar/gkaa1018
