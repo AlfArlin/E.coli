@@ -120,9 +120,9 @@
       "metadata/zhu_2025_samples.tsv": "66329b1dc29291f3c9d205c7352ac1e4188405608cb32bb83139c310cc7824be"
     },
     "outputs": [
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\data\\processed\\mass_fractions.tsv.gz",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\data\\processed\\sample_metadata.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\data\\processed\\protein_table.tsv"
+      "data/processed/mass_fractions.tsv.gz",
+      "data/processed/sample_metadata.tsv",
+      "data/processed/protein_table.tsv"
     ],
     "notes": {
       "schmidt_2016": {
@@ -312,7 +312,7 @@
       "metadata/scope_overrides.tsv": "6e28e75040965b5a5ffab3a72e6c1d3b4f32116de784e07186748be2767ef702"
     },
     "outputs": [
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\data\\processed\\sample_metadata_scoped.tsv"
+      "data/processed/sample_metadata_scoped.tsv"
     ],
     "notes": {
       "n_runs_in_scope": 36,
@@ -376,14 +376,14 @@
     },
     "inputs_sha256": {},
     "outputs": [
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_cog_fractions_per_run.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_cog_fractions_per_condition.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_condition_table.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_cog_growth_slopes.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_annotation_coverage.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_cog_fractions_combined_display.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_proteome_shift_per_condition.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\03_proteomap_category_change.tsv"
+      "results/tables/03_cog_fractions_per_run.tsv",
+      "results/tables/03_cog_fractions_per_condition.tsv",
+      "results/tables/03_condition_table.tsv",
+      "results/tables/03_cog_growth_slopes.tsv",
+      "results/tables/03_annotation_coverage.tsv",
+      "results/tables/03_cog_fractions_combined_display.tsv",
+      "results/tables/03_proteome_shift_per_condition.tsv",
+      "results/tables/03_proteomap_category_change.tsv"
     ],
     "notes": {
       "n_conditions": 28,
@@ -435,11 +435,11 @@
     },
     "inputs_sha256": {},
     "outputs": [
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\04_asca_variance_partition.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\04_asca_protein_slopes.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\04_asca_cog_summary.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\04_asca_condition_scores.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\04_pca_scores_before_after.tsv"
+      "results/tables/04_asca_variance_partition.tsv",
+      "results/tables/04_asca_protein_slopes.tsv",
+      "results/tables/04_asca_cog_summary.tsv",
+      "results/tables/04_asca_condition_scores.tsv",
+      "results/tables/04_pca_scores_before_after.tsv"
     ],
     "notes": {
       "proteins_in_merged_matrix": 4449,
@@ -506,11 +506,11 @@
     },
     "inputs_sha256": {},
     "outputs": [
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\05_predictions.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\05_outer_folds.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\05_tuning_trials.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\05_pls_coefficients.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\05_split_membership.tsv"
+      "results/tables/05_predictions.tsv",
+      "results/tables/05_outer_folds.tsv",
+      "results/tables/05_tuning_trials.tsv",
+      "results/tables/05_pls_coefficients.tsv",
+      "results/tables/05_split_membership.tsv"
     ],
     "notes": {
       "rmse_model": 0.3627538887890344,
@@ -583,10 +583,10 @@
     },
     "inputs_sha256": {},
     "outputs": [
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_batch_detection_limits.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_sensitivity_summary.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_sensitivity_slopes.tsv",
-      "C:\\Users\\arlin\\OneDrive\\Documentos\\proteome_allocation\\proteome_allocation\\results\\tables\\06_protein_filter_alternatives.tsv"
+      "results/tables/06_batch_detection_limits.tsv",
+      "results/tables/06_sensitivity_summary.tsv",
+      "results/tables/06_sensitivity_slopes.tsv",
+      "results/tables/06_protein_filter_alternatives.tsv"
     ],
     "notes": {
       "LLOD50_log10": {

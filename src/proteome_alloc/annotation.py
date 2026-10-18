@@ -34,6 +34,9 @@ COG_ID = re.compile(r"^COG\d{4}$")
 
 
 def _download(url: str, target: Path, params: dict | None = None) -> dict:
+    """Download one annotation file and return its provenance record
+    (final URL, UTC date, UniProt release header, SHA-256 and size).
+    """
     import requests
     response = requests.get(url, params=params, timeout=300)
     response.raise_for_status()
@@ -112,6 +115,11 @@ def build_annotation(cfg: Config, refresh: bool = False) -> pd.DataFrame:
 
 
 def load_annotation(cfg: Config) -> pd.DataFrame:
+    """Read the cached b-number -> COG table built by `build_annotation`.
+
+    Empty COG fields are kept as empty strings (not NaN) so that proteins without
+    a COG stay in the analysis as their own group instead of being dropped.
+    """
     path = cfg.path("annotation_dir") / cfg["annotation"]["output_file"]
     if not path.exists():
         raise FileNotFoundError(f"{path} not found. Run:  python -m proteome_alloc.annotation")
@@ -145,6 +153,7 @@ def category_weights(loci: pd.Index, annotation: pd.DataFrame, cfg: Config) -> p
 
 
 def category_labels(cfg: Config) -> pd.Series:
+    """COG category letter -> human-readable description (metadata/cog_categories.tsv)."""
     table = pd.read_csv(cfg.resolve(cfg["annotation"]["cog_categories"]), sep="\t", dtype=str,
                         keep_default_na=False)
     return table.set_index("COG_Category")["Description"]

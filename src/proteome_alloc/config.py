@@ -42,21 +42,24 @@ class Config(dict):
     root: Path
 
     def path(self, key: str) -> Path:
-        p = self.root / self["paths"][key]
-        return p
+        """Absolute path of a folder named in the `paths:` block of config.yml."""
+        return self.root / self["paths"][key]
 
     def resolve(self, relative: str | os.PathLike) -> Path:
+        """Turn a repository-relative path (as written in config.yml) into an absolute one."""
         p = Path(relative)
         return p if p.is_absolute() else self.root / p
 
     @property
     def figures(self) -> Path:
+        """results/figures/, created on first use."""
         p = self.path("results_dir") / "figures"
         p.mkdir(parents=True, exist_ok=True)
         return p
 
     @property
     def tables(self) -> Path:
+        """results/tables/, created on first use."""
         p = self.path("results_dir") / "tables"
         p.mkdir(parents=True, exist_ok=True)
         return p
@@ -66,13 +69,20 @@ class Config(dict):
         return np.random.default_rng(self.seed_sequence(stream))
 
     def seed_sequence(self, stream: str) -> np.random.SeedSequence:
+        """Seed for one named stochastic step.
+
+        The stream name is hashed into a second integer, so e.g. the bootstrap and
+        the permutation test never share random numbers, yet both are fixed by the
+        single master seed. `.spawn(n)` on the result gives n independent child
+        seeds, one per parallel job, which is why results do not depend on n_jobs.
+        """
         tag = int.from_bytes(hashlib.sha256(stream.encode()).digest()[:4], "big")
         return np.random.SeedSequence([int(self["seed"]), tag])
 
 
 def load_config(path: str | os.PathLike | None = None) -> Config:
     """Load config.yml. The environment variable PALLOC_CONFIG can point to an
-    alternative file (used by the smoke test so real data are never touched)."""
+    alternative file, e.g. to test the pipeline on other data without editing config.yml."""
     env = os.environ.get("PALLOC_CONFIG")
     if path is None and env:
         path = env
@@ -90,6 +100,11 @@ def load_config(path: str | os.PathLike | None = None) -> Config:
 
 
 def sha256(path: str | os.PathLike, chunk: int = 1 << 20) -> str:
+    """SHA-256 fingerprint of a file, read in 1 MB blocks.
+
+    Stored in the run log for every input, so anyone can check that they are
+    running the pipeline on exactly the same files.
+    """
     digest = hashlib.sha256()
     with open(path, "rb") as fh:
         for block in iter(lambda: fh.read(chunk), b""):
@@ -98,6 +113,7 @@ def sha256(path: str | os.PathLike, chunk: int = 1 << 20) -> str:
 
 
 def environment_record() -> dict:
+    """Python version, operating system and installed version of each tracked package."""
     versions = {}
     for pkg in TRACKED_PACKAGES:
         try:
@@ -106,6 +122,14 @@ def environment_record() -> dict:
             versions[pkg] = None
     return {"python": sys.version.split()[0], "platform": platform.platform(),
             "packages": versions}
+
+
+def _relative(cfg: Config, path: str | os.PathLike) -> str:
+    """Path relative to the repository root, so the log contains no machine-specific paths."""
+    try:
+        return Path(path).resolve().relative_to(cfg.root).as_posix()
+    except ValueError:
+        return str(path)
 
 
 def log_run(cfg: Config, step: str, params: dict | None = None,
@@ -122,7 +146,7 @@ def log_run(cfg: Config, step: str, params: dict | None = None,
         "environment": environment_record(),
         "parameters": params or {},
         "inputs_sha256": inputs or {},
-        "outputs": [str(o) for o in (outputs or [])],
+        "outputs": [_relative(cfg, o) for o in (outputs or [])],
         "notes": notes or {},
     }
     log[step] = entry          # re-running a step replaces its entry

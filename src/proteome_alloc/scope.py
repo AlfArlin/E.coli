@@ -111,6 +111,7 @@ def cross_dataset_offsets(X: pd.DataFrame, obs: pd.DataFrame) -> pd.DataFrame:
 
 
 def save_scoped(cfg: Config, obs: pd.DataFrame):
+    """Write the final metadata table (with scope decisions) used by all later notebooks."""
     path = cfg.path("processed_dir") / "sample_metadata_scoped.tsv"
     obs.to_csv(path, sep="\t")
     return path

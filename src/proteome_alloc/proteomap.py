@@ -57,6 +57,7 @@ SHORT = {
 # squarified treemap (Bruls, Huizing & van Wijk 2000)
 # --------------------------------------------------------------------------- #
 def _worst(row, side):
+    """Worst aspect ratio of a row of rectangles (squarified treemap criterion)."""
     total = sum(row)
     return max(max(side ** 2 * r / total ** 2, total ** 2 / (side ** 2 * r)) for r in row)
 
@@ -86,6 +87,7 @@ def squarify(values, x, y, w, h):
 
 
 def _lay_row(row, x, y, w, h, rects):
+    """Place one row of treemap rectangles and return the remaining free area."""
     total = sum(row)
     if w >= h:                                   # row is a column on the left
         width = total / h
@@ -121,6 +123,11 @@ def condition_profiles(X: pd.DataFrame, obs: pd.DataFrame, cfg: Config):
 
 
 def select_conditions(info: pd.DataFrame, cfg: Config) -> list[str]:
+    """Pick the two conditions shown in the proteomap.
+
+    'auto' = slowest and fastest condition of the dataset with the widest
+    growth-rate range, so both maps come from one study (no platform offset).
+    """
     spec = cfg.get("proteomap", {}).get("conditions", "auto")
     if spec != "auto":
         missing = [c for c in spec if c not in info.index]
@@ -136,6 +143,9 @@ def select_conditions(info: pd.DataFrame, cfg: Config) -> list[str]:
 
 
 def category_change(profiles: pd.DataFrame, category: pd.Series, conditions: list[str]) -> pd.DataFrame:
+    """Percentage of the proteome in each category for the chosen conditions,
+    and the change in percentage points between slow and fast growth.
+    """
     shares = profiles.loc[conditions].T.groupby(category).sum() * 100
     shares.columns = ["slow", "fast"] if len(conditions) == 2 else conditions
     if len(conditions) == 2:
@@ -147,6 +157,7 @@ def category_change(profiles: pd.DataFrame, category: pd.Series, conditions: lis
 # drawing
 # --------------------------------------------------------------------------- #
 def _text_colour(hex_colour):
+    """Dark or light label text, whichever is readable on the given fill colour."""
     r, g, b = to_rgb(hex_colour)
     return INK if 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.55 else SURFACE
 

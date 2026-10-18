@@ -70,6 +70,7 @@ def prepare_protein_matrix(X: pd.DataFrame, obs: pd.DataFrame, cfg: Config):
 
 
 def _onehot(labels) -> np.ndarray:
+    """One-hot (dummy) design matrix for a categorical factor such as the dataset label."""
     return pd.get_dummies(pd.Series(np.asarray(labels).astype(str)), dtype=float).to_numpy()
 
 
@@ -83,6 +84,9 @@ def _basis(D: np.ndarray, tol: float = 1e-10) -> np.ndarray:
 
 @dataclass
 class ASCAResult:
+    """Everything the ASCA step produces: variance partition, per-protein slopes,
+    condition scores, permutation p-values and null distributions, and parameters.
+    """
     variance_table: pd.DataFrame
     protein_table: pd.DataFrame
     scores: pd.DataFrame
@@ -148,6 +152,9 @@ def run_asca(L: pd.DataFrame, info: pd.DataFrame, cfg: Config, gene_names: pd.Se
     index_by_batch = [np.where(batch == b)[0] for b in np.unique(batch)]
 
     def statistic(values: np.ndarray) -> float:
+        """Sum of squares explained by growth rate after removing the dataset effect
+        (the ASCA test statistic recomputed for every permutation).
+        """
         q = _basis(remove_batch @ (values - values.mean())[:, None])
         return float(np.sum(q * (gram @ q)))
 
@@ -176,6 +183,9 @@ def run_asca(L: pd.DataFrame, info: pd.DataFrame, cfg: Config, gene_names: pd.Se
         ss_r = float(np.trace(gram_r))
 
         def pseudo_f(g: np.ndarray) -> float:
+            """Pseudo-F of the dataset x growth-rate interaction:
+            (interaction SS / its df) / (residual SS / residual df).
+            """
             ss_i = float(np.sum(Qi * (g @ Qi)))                      # ||Qi' R*||^2
             ss_red = float(np.sum(Q_reduced * (g @ Q_reduced)))       # part refitted by batch + growth
             ss_e = ss_r - ss_red - ss_i

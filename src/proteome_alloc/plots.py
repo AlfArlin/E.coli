@@ -39,10 +39,12 @@ plt.rcParams.update({
 
 
 def _style(dataset: str):
+    """Fixed colour and marker of a dataset, so each study looks the same in every figure."""
     return DATASET_STYLE.get(str(dataset), (MUTED, "X"))
 
 
 def _save(fig, path):
+    """Save a figure at 200 dpi (creating the folder if needed) and return it."""
     if path is not None:
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(path, dpi=200, bbox_inches="tight")
@@ -50,6 +52,7 @@ def _save(fig, path):
 
 
 def _scatter_by_dataset(ax, x, y, datasets, **kwargs):
+    """Scatter plot with one colour/marker per dataset and a legend entry for each."""
     for name in pd.unique(datasets):
         colour, marker = _style(name)
         mask = np.asarray(datasets) == name
@@ -202,6 +205,10 @@ def plot_slopes(table: pd.DataFrame, labels: pd.Series, path=None):
 
 
 def plot_asca(result, path=None, top_n: int = 20, batch_key: str = "Dataset_Source"):
+    """Four-panel ASCA summary: (A) variance partition, (B) permutation null of the growth
+    effect, (C) condition scores against growth rate, (D) proteins with the most positive and most
+negative growth-rate slopes.
+    """
     fig, axes = plt.subplots(2, 2, figsize=(11.5, 8))
     vt = result.variance_table.drop(index="Total (centred)")
     ax = axes[0, 0]
@@ -246,6 +253,9 @@ def plot_asca(result, path=None, top_n: int = 20, batch_key: str = "Dataset_Sour
 
 
 def plot_prediction(result: dict, path=None):
+    """Leave-one-dataset-out prediction: (A) observed vs predicted growth rate,
+    (B) model RMSE against the permutation null and the mean baseline.
+    """
     fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.2))
     table = result["predictions"]
     ax = axes[0]

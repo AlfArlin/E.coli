@@ -31,11 +31,17 @@ from .ingest import GROWTH
 
 
 def make_model(n_components: int) -> Pipeline:
+    """Scaler + PLS regression as one scikit-learn Pipeline.
+
+    Because scaling is a pipeline step, its means and standard deviations are
+    learned on the training folds only - this is what prevents preprocessing leakage.
+    """
     return Pipeline([("scale", StandardScaler()),
                      ("pls", PLSRegression(n_components=n_components, scale=False))])
 
 
 def _rmse(y, yhat) -> float:
+    """Root-mean-square error between observed and predicted values."""
     return float(np.sqrt(np.mean((np.asarray(y) - np.asarray(yhat)) ** 2)))
 
 
@@ -86,6 +92,10 @@ def nested_cv(X: np.ndarray, y: np.ndarray, groups: np.ndarray, grid) -> dict:
 
 
 def _permuted_rmse(seed, X, y, groups, grid) -> float:
+    """Repeat the full nested cross-validation with growth rates shuffled within each dataset.
+
+    One call = one draw of the permutation null distribution (run in parallel).
+    """
     rng = np.random.default_rng(seed)
     shuffled = y.copy()
     for g in np.unique(groups):

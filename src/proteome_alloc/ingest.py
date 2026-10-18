@@ -40,6 +40,9 @@ OBS_COLUMNS = [
 
 @dataclass
 class Dataset:
+    """One loaded study in the common schema: samples x b-numbers mass fractions (X),
+    sample metadata (obs), gene names, a log of every row/sample dropped, and file checksums.
+    """
     name: str
     X: pd.DataFrame                     # samples x b-numbers, mass fractions
     obs: pd.DataFrame                   # index = Sample_ID, columns = OBS_COLUMNS
@@ -52,6 +55,7 @@ class Dataset:
 # helpers
 # --------------------------------------------------------------------------- #
 def _raw(cfg: Config, name: str) -> Path:
+    """Path of a supplementary file in data/raw/, with a clear error if it is missing."""
     path = cfg.path("raw_dir") / name
     if not path.exists():
         raise FileNotFoundError(
@@ -70,6 +74,11 @@ def _col(df: pd.DataFrame, wanted: str) -> str:
 
 
 def _read_metadata(cfg: Config, rel_path: str) -> pd.DataFrame:
+    """Read a curated sample table from metadata/ and index it by Original_Sample_ID.
+
+    Stops on duplicated sample IDs, because a duplicate would silently attach
+    the wrong growth rate to a proteome.
+    """
     meta = pd.read_csv(cfg.resolve(rel_path), sep="\t", dtype=str, keep_default_na=False)
     if meta["Original_Sample_ID"].duplicated().any():
         raise ValueError(f"Duplicated Original_Sample_ID in {rel_path}")
@@ -132,6 +141,11 @@ def _finalise(name: str, wide: pd.DataFrame, obs: pd.DataFrame, genes: pd.Series
 
 
 def _missing_samples(cfg: Config, name: str, expected, found, log: dict) -> None:
+    """Report samples that are listed in the metadata but have no data column.
+
+    They are logged and warned about (or raise an error when
+    `ingest.strict_missing_samples` is true) - never skipped silently.
+    """
     missing = [s for s in expected if s not in set(found)]
     log["samples_in_metadata_not_in_files"] = missing
     if missing:
@@ -218,6 +232,11 @@ def load_schmidt(cfg: Config, annotation: pd.DataFrame) -> Dataset:
 # Mori et al. 2021 - absolute mass fractions, metadata from the samples table
 # --------------------------------------------------------------------------- #
 def load_mori(cfg: Config) -> Dataset:
+    """Load Mori et al. 2021 (EV8 absolute mass fractions + EV2 sample annotation).
+
+    Only NCM3722 samples are kept. Growth rate is computed from the reported
+    doubling time as ln(2) / doubling time.
+    """
     c = cfg["datasets"]["mori_2021"]
     a_path, s_path = _raw(cfg, c["abundance_file"]), _raw(cfg, c["samples_file"])
     log, files = {}, {a_path.name: sha256(a_path), s_path.name: sha256(s_path)}
@@ -251,6 +270,7 @@ def load_mori(cfg: Config) -> Dataset:
     _missing_samples(cfg, "mori_2021", samples.index, wide.columns, log)
 
     def text(column: str) -> pd.Series:
+        """Text column of the sample sheet, stripped; an empty column if the sheet does not have it."""
         try:
             return samples[_col(samples, column)].astype("string").fillna("").str.strip()
         except KeyError:
@@ -296,6 +316,11 @@ def load_mori(cfg: Config) -> Dataset:
 # Wu et al. 2023 - three measurement groups (= MS batches), metadata from TSV
 # --------------------------------------------------------------------------- #
 def load_wu(cfg: Config) -> Dataset:
+    """Load Wu et al. 2023: one sheet per MS batch (Group #1-#3) of protein mass fractions.
+
+    Sample metadata and growth rates come from metadata/wu_2023_samples.tsv;
+    the MS batch is kept so batch effects can be modelled later.
+    """
     c = cfg["datasets"]["wu_2023"]
     path = _raw(cfg, c["file"])
     log, files = {}, {path.name: sha256(path)}
@@ -329,6 +354,11 @@ def load_wu(cfg: Config) -> Dataset:
 # Zhu et al. 2025 - every sheet of every configured file is searched
 # --------------------------------------------------------------------------- #
 def load_zhu(cfg: Config) -> Dataset:
+    """Load the E. coli samples of Zhu et al. 2025 (Supplementary Data 1/2).
+
+    Every sheet of every configured file is searched for the sample columns listed in
+    metadata/zhu_2025_samples.tsv; the sheet each sample was found in is logged.
+    """
     c = cfg["datasets"]["zhu_2025"]
     meta = _read_metadata(cfg, c["metadata"])
     log, files, blocks, found_in = {}, {}, [], {}
@@ -391,6 +421,7 @@ def combine(datasets: list[Dataset]) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
 
 
 def ingest_report(datasets: list[Dataset]) -> pd.DataFrame:
+    """One-row-per-dataset summary of the ingest log (sizes, sum checks, drops)."""
     keys = ["n_samples", "n_loci", "detected_per_sample_median", "sample_sum_min", "sample_sum_max",
             "rows_invalid_locus_dropped", "duplicated_locus_rows_summed",
             "cells_non_numeric_set_to_zero", "samples_in_metadata_not_in_files"]
@@ -398,6 +429,7 @@ def ingest_report(datasets: list[Dataset]) -> pd.DataFrame:
 
 
 def save_processed(cfg: Config, X: pd.DataFrame, obs: pd.DataFrame, var: pd.DataFrame) -> list[Path]:
+    """Write the harmonised matrix, sample metadata and protein table to data/processed/."""
     out = cfg.path("processed_dir")
     paths = [out / "mass_fractions.tsv.gz", out / "sample_metadata.tsv", out / "protein_table.tsv"]
     X.to_csv(paths[0], sep="\t", float_format="%.10g")
@@ -407,6 +439,7 @@ def save_processed(cfg: Config, X: pd.DataFrame, obs: pd.DataFrame, var: pd.Data
 
 
 def load_processed(cfg: Config) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Read the files written by `save_processed` and check that rows and columns still match."""
     out = cfg.path("processed_dir")
     X = pd.read_csv(out / "mass_fractions.tsv.gz", sep="\t", index_col=0)
     obs = pd.read_csv(out / "sample_metadata.tsv", sep="\t", index_col=0)

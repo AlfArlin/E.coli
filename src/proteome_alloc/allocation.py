@@ -80,6 +80,11 @@ def aggregate_conditions(values: pd.DataFrame, obs: pd.DataFrame, cfg: Config):
 # pooled within-dataset slope
 # --------------------------------------------------------------------------- #
 def _center_within(values: np.ndarray, groups: np.ndarray) -> np.ndarray:
+    """Subtract each group's mean from its own rows (within-dataset centring).
+
+    Removing the dataset mean before fitting a slope means a slope can only come
+    from growth-rate differences *inside* one study, never from offsets between studies.
+    """
     out = np.asarray(values, dtype=float).copy()
     for g in np.unique(groups):
         mask = groups == g
@@ -101,6 +106,12 @@ def within_slopes(Y: np.ndarray, mu: np.ndarray, groups: np.ndarray):
 
 
 def _bootstrap_chunk(seed, n_draws, Y, mu, groups):
+    """Draw `n_draws` stratified bootstrap resamples and return the slope of each.
+
+    Conditions are resampled with replacement *within each dataset*, so every
+    resample keeps the same number of conditions per study. Runs as one parallel
+    job with its own child seed (see Config.seed_sequence).
+    """
     rng = np.random.default_rng(seed)
     index_by_group = [np.where(groups == g)[0] for g in np.unique(groups)]
     draws = np.full((n_draws, Y.shape[1]), np.nan)
