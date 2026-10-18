@@ -21,10 +21,6 @@ and the pipeline only harmonises units, identifiers, annotation and metadata.
 | DF03 | Wu C. *et al.* (2023) Enzyme expression kinetics by *Escherichia coli* during transition from rich to minimal media depends on proteome reserves. *Nat. Microbiol.* 8:347–359. [doi:10.1038/s41564-022-01310-w](https://doi.org/10.1038/s41564-022-01310-w) | absolute protein mass fraction | `3.1CHEN41564_2022_1310_MOESM3_ESM.xlsx` (Group #1–#3) |
 | DF04 | Zhu M., Mori M., Hwa T., Dai X. (2025) Distantly related bacteria share a rigid proteome allocation strategy with flexible enzyme kinetics. *PNAS*. [doi:10.1073/pnas.2427091122](https://doi.org/10.1073/pnas.2427091122) | DIA, absolute protein mass fraction | `4.1. Zhu_SD01.xlsx`, `4.2Zhu_SD02.xlsx` (E. coli sheets) |
 
-The supplementary files are included in `data/raw/` exactly as downloaded, so the analysis can be
-rerun without any download. Their SHA-256 checksums are recorded in `results/run_log.json`.
-The other files in `data/raw/` (`2.2…`, `2.4…`, `2.5…`) are additional supplementary tables that
-are not read by the pipeline.
 
 ## Analysis workflow
 
