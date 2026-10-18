@@ -73,6 +73,7 @@ git clone https://github.com/AlfArlin/E.coli.git
 cd E.coli
 conda env create -f environment.yml
 conda activate proteome-allocation
+Without conda: pip install -r requirements.txt
 
 python run_all.py              # runs everything, about 2 minutes on a laptop
 python run_all.py --from 3     # restart from notebook 03
