@@ -35,6 +35,7 @@ raw supplementary tables ──► 01 ingest & harmonise ──► 02 metadata, 
                                                                                └─► 06 sensitivity to missing values
                                                          all saved results ──► 07 final figures
 ```
+<img width="610" height="452" alt="image" src="https://github.com/user-attachments/assets/66fc4c6e-a8c6-436f-bb53-aca20316a5c4" />
 
 | step | notebook | what it does |
 |---|---|---|
