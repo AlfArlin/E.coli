@@ -161,9 +161,40 @@ confirmation in further independent studies.
 * Growth rates for Wu 2023 and Zhu 2025 were entered by hand in `metadata/wu_2023_samples.tsv`
   and `metadata/zhu_2025_samples.tsv`; the `Growth_Rate_Source` column gives their origin.
   Mori 2021 growth rates are computed from the published doubling times, Schmidt 2016 from Table S23.
-* The scope classification of Mori 2021 is keyword-based (reviewed decisions are in
-  `metadata/scope_overrides.tsv`).
-* Category fractions sum to 1, so a falling category can be passive dilution by a growing one
-  (notebook 03, section 4).
-* Internal validation on four studies of one strain background; no claim is made beyond
-  nutrient-limited growth of *E. coli* K-12.
+
+  ## Use of AI tools
+
+In the interest of transparency: this project was developed with the help of an AI assistant,
+Gemini (Google), use during the course (September–October 2026).
+
+
+**What I decided and did myself**
+
+* Discussing analysis options from class meetings and their statistical justification ( how to treat missing
+  values, ASCA, leave-one-dataset-out validation, avoiding data leakage).
+* The research question, the choice of the four datasets and the scope (nutrient-quality
+  conditions only).
+* The key analysis decisions: one COG annotation for all datasets, no batch-correction
+  algorithm, growth condition as the statistical unit.
+* Collecting the supplementary files and curating the sample metadata in `metadata/`.
+* Running the pipeline, inspecting every output and figure, and interpreting the results.
+**What the AI assistant was used for**
+
+* Drafting and restructuring code: the dataset loaders, the functions in `src/proteome_alloc/`,
+  and the split of the original single notebook into the numbered notebooks were written with
+  the assistant and revised over several iterations.
+* Debugging errors.
+* Documentation: docstrings, comments, the markdown explanations in the notebooks and this
+  README, including a final review of the repository against the course checklist
+  (18 October 2026), in which the pipeline was rerun on a second operating system.
+
+**How the AI-assisted output was checked**
+
+* Every notebook runs top to bottom from the raw files, and the code stops on inconsistent
+  sample IDs, missing metadata or non-orthogonal effect matrices.
+* Converted values were checked against the original publications (e.g. the Schmidt
+  copies-per-cell conversion and the EF-Tu / HU cross-check in notebook 01).
+* The full pipeline was reproduced on a second operating system with identical p-values.
+
+I reviewed all code and text suggested by the assistant and take responsibility for the final
+content.
