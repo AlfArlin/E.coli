@@ -69,11 +69,15 @@ results/run_log.json    per step: parameters, input checksums, package versions,
 plus JupyterLab/nbconvert to run the notebooks). Tested on Windows 11 and Linux.
 
 ```bash
-git clone https://github.com/AlfArlin/E.coli.git
-cd E.coli
+git clone https://github.com/AlfArlin/E.coli-proteome_allocation.git
+cd E.coli-proteome_allocation
+
+# Option A - with conda
 conda env create -f environment.yml
 conda activate proteome-allocation
-Without conda: pip install -r requirements.txt
+
+# Option B - without conda (Python 3.13)
+pip install -r requirements.txt
 
 python run_all.py              # runs everything, about 2 minutes on a laptop
 python run_all.py --from 3     # restart from notebook 03
