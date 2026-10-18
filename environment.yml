@@ -1,4 +1,3 @@
-# Exact versions the pipeline was run and verified with (Windows 11 and Linux).
 # Create with:  conda env create -f environment.yml   then:  conda activate proteome-allocation
 # Run with:     python run_all.py
 name: proteome-allocation
