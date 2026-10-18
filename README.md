@@ -1,11 +1,11 @@
-# Proteome allocation protein groups involve ingrowth rate in *E. coli* (COG functional groups)
+#Arlin Alfaro Arias -MSB1015 - October 
+#Proteome allocation protein groups involve ingrowth rate in *E. coli* 
 
-**Question.** Which functional protein groups take a larger or smaller share of the
-*E. coli* K-12 (NCM3722) proteome as growth rate changes across nutrient conditions,
+** Research Question.** Which functional protein of the *E. coli* _K-12 _ proteome are associated with growth rate changes across nutrient conditions,
 and does that allocation pattern transfer between independent studies?
 
 **Data.** Four published, already-processed absolute proteomics datasets:
-Schmidt 2016, Mori 2021, Wu 2023 and Zhu 2025. No raw MS data are reprocessed.
+**DF01**Schmidt 2016, Mori 2021, Wu 2023 and Zhu 2025. No raw MS data are reprocessed. If you want to check the references go to the last section.
 
 **Approach.**
 
